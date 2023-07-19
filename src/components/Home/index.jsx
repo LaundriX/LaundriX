@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, Heading, Box, Image, Flex, chakra } from '@chakra-ui/react';
 import LandingImg from '../../assets/LandingImg.svg';
+import { useNavigate } from 'react-router-dom';
 
 const LandingButton = chakra('button', {
   baseStyle: {
@@ -19,7 +20,9 @@ const LandingButton = chakra('button', {
     },
   },
 });
+
 function HeroSection() {
+  const navigate = useNavigate();
   return (
     <>
       <Flex justifyContent="center" alignItems="center" gap>
@@ -37,7 +40,13 @@ function HeroSection() {
             ridiculously simple.
           </Text>
 
-          <LandingButton>Click me</LandingButton>
+          <LandingButton
+            onClick={() => {
+              navigate('/OrderList');
+            }}
+          >
+            Click me
+          </LandingButton>
         </Box>
         <Box>
           <Image src={LandingImg} />
