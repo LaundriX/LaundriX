@@ -1,29 +1,39 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import OrderList from '../../TempData/OrderList';
 import { Box, Image, Heading, Text, Flex } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return state.map((item, index) =>
+        index === action.payload
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    case 'DECREMENT':
+      return state.map((item, index) =>
+        index === action.payload
+          ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
+          : item
+      );
+    default:
+      return state;
+  }
+};
+
 const LaundryOrderCard = () => {
-  const [, setItem] = React.useState(OrderList);
+  const [items, dispatch] = useReducer(reducer, OrderList);
 
   const handleIncrement = (index) => {
-    setItem((prevItems) => {
-      const updatedItems = [...prevItems];
-      updatedItems[index].quantity += 1;
-      return updatedItems;
-    });
+    dispatch({ type: 'INCREMENT', payload: index });
   };
 
   const handleDecrement = (index) => {
-    setItem((prevItems) => {
-      const updatedItems = [...prevItems];
-      updatedItems[index].quantity != 0
-        ? (updatedItems[index].quantity -= 1)
-        : (updatedItems[index].quantity = 0);
-      return updatedItems;
-    });
+    dispatch({ type: 'DECREMENT', payload: index });
   };
 
-  const card = OrderList.map((value, index) => {
+  const card = items.map((value, index) => {
     return (
       <Flex
         key={index}
@@ -65,6 +75,7 @@ const LaundryOrderCard = () => {
       </Flex>
     );
   });
+
   return <Box>{card}</Box>;
 };
 
