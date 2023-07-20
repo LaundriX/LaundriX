@@ -1,7 +1,12 @@
 import React from 'react';
+import LaundryOrderCard from '../../components/LaundryOrderCard';
 
 function OrderList() {
-  return <div>OrderList</div>;
+  return (
+    <>
+      <LaundryOrderCard />
+    </>
+  );
 }
 
 export default OrderList;

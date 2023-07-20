@@ -32,7 +32,7 @@ function HeroSection() {
           flexDirection="column"
           alignItems="center"
         >
-          <Heading color="#584BAC" mb={4} textAlign="center">
+          <Heading color="lxPurple" mb={4} textAlign="center">
             Laundry and Dry Cleaning, Done.
           </Heading>
           <Text fontSize="xl" textAlign="center">
