@@ -2,7 +2,6 @@ import React from 'react';
 import OrderList from '../../TempData/OrderList';
 import { Box, Image, Heading, Text, Flex } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
-
 const LaundryOrderCard = () => {
   const card = OrderList.map((value, index) => {
     return (
@@ -18,7 +17,7 @@ const LaundryOrderCard = () => {
       >
         <Flex>
           <Box>
-            <Image ml={2} mr={8} src={`src/assets/${value.image}`} />
+            <Image ml={2} mr={8} src={`/assets/${value.image}`} />
           </Box>
           <Box>
             <Heading size="md">{value.item}</Heading>
