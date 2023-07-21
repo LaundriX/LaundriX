@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Text, Flex, Spacer, Button, Avatar } from '@chakra-ui/react';
 import { FcGoogle } from 'react-icons/fc';
 import { auth, provider } from '../Authentication/config.jsx';
 import { signInWithPopup } from 'firebase/auth';
 
-export default function Navbar() {
+function Navbar() {
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
-  console.log('RENDERED !!');
 
   useEffect(() => {
     setUserEmail(localStorage.getItem('email'));
@@ -50,9 +50,11 @@ export default function Navbar() {
           fontWeight="500"
         >
           {/* FONT FAMILY CAN BE DECIDED LATER */}
-          <Text color="#584BAC" fontSize="2.8rem">
-            LaundriX
-          </Text>
+          <Link to="/">
+            <Text color="#584BAC" fontSize="2.8rem">
+              LaundriX
+            </Text>
+          </Link>
           <Text>How it works ?</Text>
           <Text>Services</Text>
         </Flex>
@@ -77,7 +79,12 @@ export default function Navbar() {
               py="5px"
               borderRadius="10px"
             >
-              <Avatar as="Box" name={userName} w="35px" h="35px" />
+              <Avatar
+                as="Box"
+                name={userName.split(' ')[0]}
+                w="35px"
+                h="35px"
+              />
               <Text
                 color="#584BAC"
                 fontSize="17.5px"
@@ -104,3 +111,5 @@ export default function Navbar() {
     </>
   );
 }
+
+export default Navbar;
