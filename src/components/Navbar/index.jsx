@@ -38,6 +38,18 @@ function Navbar() {
     setUserName('');
   }
 
+  const getIconSize = () => {
+    if (windowWidth >= 1280) {
+      return '26px';
+    } else if (windowWidth >= 992) {
+      return '23px';
+    } else if (windowWidth >= 768) {
+      return '20px';
+    } else {
+      return '18px';
+    }
+  };
+
   return (
     <>
       <Flex
@@ -117,7 +129,7 @@ function Navbar() {
           </Flex>
         ) : (
           <Button
-            leftIcon={<FcGoogle size="20px" />}
+            leftIcon={<FcGoogle style={{ fontSize: getIconSize() }} />}
             color="rgba(0, 0, 0, 0.60)"
             border="2px solid #584BAC"
             borderRadius="9px"
