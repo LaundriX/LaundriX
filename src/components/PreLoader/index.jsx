@@ -14,7 +14,7 @@ function PreLoader() {
   useEffect(() => {
     if (lottieRef.current) {
       if (direction) {
-        lottieRef.current.setSpeed(2.5);
+        lottieRef.current.setSpeed(2);
         lottieRef.current.playSegments([0, animationData.op], true);
       } else {
         lottieRef.current.playSegments([animationData.op, 0], true);
@@ -26,7 +26,7 @@ function PreLoader() {
     <Flex align="center" justify="center" height="100vh">
       <Lottie
         animationData={animationData}
-        style={{ height: '550px' }}
+        style={{ height: '100rem' }}
         lottieRef={lottieRef}
         loop={false}
         onComplete={handleComplete}
