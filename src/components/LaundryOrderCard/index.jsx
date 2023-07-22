@@ -1,8 +1,10 @@
 import React, { useReducer } from 'react';
 import OrderList from '../../TempData/OrderList';
-import { Box, Image, Heading, Text, Flex } from '@chakra-ui/react';
+import { Box, Image, Heading, Text, Flex, Button } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
+import PriceCard from '../PriceCard';
 
+let quantityChecker = 0;
 const reducer = (state, action) => {
   switch (action.type) {
     case 'INCREMENT':
@@ -21,7 +23,6 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
 const LaundryOrderCard = () => {
   const [items, dispatch] = useReducer(reducer, OrderList);
 
@@ -40,7 +41,7 @@ const LaundryOrderCard = () => {
         boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
         borderRadius="0.5rem"
         mb={4}
-        maxWidth="36rem"
+        minWidth="30rem"
         height="8rem"
         alignItems="center"
         justifyContent="space-between"
@@ -62,21 +63,46 @@ const LaundryOrderCard = () => {
             color="#584BAC"
             size={32}
             strokeWidth={1.5}
-            onClick={() => handleDecrement(index)}
+            onClick={() => {
+              (quantityChecker -= 1), handleDecrement(index);
+            }}
           />
           <Text mx={2}>{value.quantity}</Text>
           <LuPlusCircle
             color="#584BAC"
             size={32}
             strokeWidth={1.5}
-            onClick={() => handleIncrement(index)}
+            onClick={() => {
+              (quantityChecker += 1), handleIncrement(index);
+            }}
           />
         </Flex>
       </Flex>
     );
   });
 
-  return <Box>{card}</Box>;
+  return (
+    <Flex gap="15rem" mt="15rem" justifyContent="center">
+      <Box>{card}</Box>
+      <Box
+        minWidth="30rem"
+        boxShadow="0px 0px 20px 0px rgba(0, 0, 0, 0.20)"
+        borderRadius="1.25rem"
+      >
+        {quantityChecker != 0 ? <PriceCard list={items} /> : null}
+        <Box>
+          <Button
+            bg="lxRed"
+            color="lxLightPurple"
+            position="absolute"
+            bottom="0"
+          >
+            Confirm Order
+          </Button>
+        </Box>
+      </Box>
+    </Flex>
+  );
 };
 
 export default LaundryOrderCard;
