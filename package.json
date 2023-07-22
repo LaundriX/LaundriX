@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "firebase": "^10.0.0",
     "framer-motion": "^10.12.21",
+    "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
@@ -28,6 +29,7 @@
     "eslint": "^8.45.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-css": "^0.8.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^5.0.0",
@@ -37,6 +39,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
+    "stylelint": "^15.10.2",
     "vite": "^4.4.0"
   },
   "lint-staged": {
