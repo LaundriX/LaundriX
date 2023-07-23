@@ -21,6 +21,7 @@ PriceCard.propTypes = {
       quantity: PropTypes.number,
     })
   ),
+  header: PropTypes.string,
 };
 function PriceCard(props) {
   const Order = props.list.map((value, index) => {
@@ -49,8 +50,7 @@ function PriceCard(props) {
             <AccordionButton>
               <Box as="span" flex="1" textAlign="left">
                 <Heading color="lxPurple" size="md">
-                  Wash
-                  {console.log(props.list)}
+                  {props.header}
                 </Heading>
               </Box>
               <AccordionIcon />

@@ -10,7 +10,7 @@ const theme = extendTheme({
     lxPurple: '#584BAC',
     lxRed: '#CE1567',
     lxBlack: '#292929',
-    lxLightPurple: '#F6EAFF',
+    lxLightPurple: '#F8EFFF',
   },
 });
 ReactDOM.createRoot(document.getElementById('root')).render(
