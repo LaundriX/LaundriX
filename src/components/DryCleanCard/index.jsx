@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import OrderList from '../../TempData/OrderList';
+import DryCleanList from '../../TempData/DryCleanList';
 import { Box, Image, Heading, Text, Flex, Button } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
 import PriceCard from '../PriceCard';
@@ -23,8 +23,8 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const LaundryOrderCard = () => {
-  const [items, dispatch] = useReducer(reducer, OrderList);
+const DryCleanCard = () => {
+  const [items, dispatch] = useReducer(reducer, DryCleanList);
 
   const handleIncrement = (index) => {
     dispatch({ type: 'INCREMENT', payload: index });
@@ -89,7 +89,9 @@ const LaundryOrderCard = () => {
         boxShadow="0px 0px 20px 0px rgba(0, 0, 0, 0.20)"
         borderRadius="1.25rem"
       >
-        {quantityChecker != 0 ? <PriceCard list={items} header="Wash" /> : null}
+        {quantityChecker != 0 ? (
+          <PriceCard list={items} header="DryClean" />
+        ) : null}
         <Box>
           <Button
             bg="lxRed"
@@ -105,4 +107,4 @@ const LaundryOrderCard = () => {
   );
 };
 
-export default LaundryOrderCard;
+export default DryCleanCard;
