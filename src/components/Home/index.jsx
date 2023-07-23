@@ -8,7 +8,7 @@ const LandingButton = chakra('button', {
     px: '3',
     mt: '2',
     py: '2',
-    bg: '#584BAC',
+    bg: '#6252c4',
     color: 'white',
     rounded: 'md',
     _hover: {

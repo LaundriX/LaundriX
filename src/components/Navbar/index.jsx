@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Text, Flex, Spacer, Button, Avatar } from '@chakra-ui/react';
+import {
+  Text,
+  Flex,
+  Spacer,
+  Button,
+  Avatar,
+  Tag,
+  TagLabel,
+} from '@chakra-ui/react';
 import { FcGoogle } from 'react-icons/fc';
 import { auth, provider } from '../Authentication/config.jsx';
 import { signInWithPopup } from 'firebase/auth';
@@ -53,31 +61,32 @@ function Navbar() {
   return (
     <>
       <Flex
+        align="center"
         position="fixed"
         top="0"
         w="100vw"
         h={['50px', '55px', '70px']}
-        align="center"
         boxShadow="0px 2px 3px lightgray"
-        pr={['20px', '30px', '40px']}
+        pr={['15px', '30px']}
       >
-        <Flex
+        {/* <Flex
           w={['', '310px', '400px', '480px']}
           align="center"
           justify="space-between"
           fontWeight="500"
-        >
-          {/* FONT FAMILY CAN BE DECIDED LATER */}
-          <Link to="/">
-            <Text
-              color="#584BAC"
-              ml={['20px', '30px', '40px', '50px']}
-              fontSize={['1.5rem', '1.7rem', '2.3rem', '2.7rem']}
-            >
-              LaundriX
-            </Text>
-          </Link>
-          {windowWidth >= 480 && (
+        > */}
+        {/* FONT FAMILY CAN BE DECIDED LATER */}
+        <Link to="/">
+          <Text
+            color="#584BAC"
+            fontWeight="500"
+            fontSize={['1.5rem', '1.7rem', '2.3rem', '2.7rem']}
+            ml={['20px', '30px', '40px', '50px']}
+          >
+            LaundriX
+          </Text>
+        </Link>
+        {/* {windowWidth >= 480 && (
             <Flex
               align="center"
               justify="space-between"
@@ -88,44 +97,59 @@ function Navbar() {
               <Text>How it works ?</Text>
               <Text>Services</Text>
             </Flex>
-          )}
-        </Flex>
+          )} */}
+        {/* </Flex> */}
         <Spacer />
         {userEmail ? (
-          <Flex align="center" justify="space-between" w="315px">
+          <Flex
+            align="center"
+            justify="space-between"
+            w={['110px', '200px', '230px', '240px']}
+          >
             <Button
               onClick={logOut}
-              backgroundColor="white"
+              h={['30px', '36px', '39px']}
+              w={['70px', '80px', '95px']}
+              backgroundColor="#6252c4"
               borderRadius="9px"
-              border="2px solid #584BAC"
-              color="rgba(0, 0, 0, 0.60)"
+              fontSize={['0.8rem', '1rem', '1.1rem']}
+              color="#ffffff"
+              _hover={{
+                bg: '#4c4196',
+              }}
+              _active={{
+                bg: '#7b6bed',
+                transform: 'scale(0.98)',
+              }}
             >
               Log Out
             </Button>
-            <Flex
-              align="center"
-              border="2px solid lightgray"
-              w="200px"
-              justify="space-between"
-              px="15px"
-              py="5px"
-              borderRadius="10px"
+            <Tag
+              borderRadius="full"
+              w={['31px', '110px', '120px']}
+              h={['31px', '38px', '44px']}
+              bg="#ffffff"
+              justifyContent="center"
+              _hover={{ bg: '#f9edfa' }}
+              border={['none', '2px solid #584Bac']}
+              cursor="pointer"
             >
               <Avatar
-                as="Box"
                 name={userName.split(' ')[0]}
-                w="35px"
-                h="35px"
+                w="31px"
+                h="31px"
+                mr={['0px', '8px']}
+                bg="pink.300"
               />
-              <Text
-                color="#584BAC"
-                fontSize="17.5px"
-                fontWeight="medium"
-                opacity="0.8"
-              >
-                Hi! {userName}
-              </Text>
-            </Flex>
+              {windowWidth >= 480 && (
+                <TagLabel
+                  color="#584BAC"
+                  fontSize={['0.8rem', '1rem', '1.1rem']}
+                >
+                  {userName.split(' ')[0]}
+                </TagLabel>
+              )}
+            </Tag>
           </Flex>
         ) : (
           <Button
