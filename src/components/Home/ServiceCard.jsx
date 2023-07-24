@@ -19,12 +19,12 @@ const ServiceCard = () => {
           />
         </Center>
         <Box py="1rem">
-          <Text fontSize="2.25rem" textAlign="center" fontWeight="semibold">
+          <Heading textAlign="center">
             What We Offer
           </Text>
           <Text
             textAlign="center"
-            fontWeight="semibold"
+            fontWeight="light"
             fontSize="xl"
             color="lxPurple"
           >
