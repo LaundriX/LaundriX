@@ -21,7 +21,7 @@ const ServiceCard = () => {
         <Box py="1rem">
           <Heading textAlign="center">
             What we offer
-          </Text>
+          </Heading>
           <Text
             textAlign="center"
             fontWeight="light"
