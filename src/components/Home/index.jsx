@@ -1,6 +1,6 @@
 import React from 'react';
 import Hero from './Hero';
-import ServiceCard from './serviceCard';
+import ServiceCard from './ServiceCard';
 import { Box } from '@chakra-ui/react';
 import WorkingCard from './WorkingCard';
 const main = () => {

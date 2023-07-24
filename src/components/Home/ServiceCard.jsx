@@ -1,5 +1,5 @@
 import React from 'react';
-import Services from './Services';
+import Services from '../../TempData/Services';
 import Service from './Service';
 import { Box, Center, Divider, Text } from '@chakra-ui/react';
 const ServiceCard = () => {
