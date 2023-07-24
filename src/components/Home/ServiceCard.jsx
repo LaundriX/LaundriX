@@ -19,10 +19,15 @@ const ServiceCard = () => {
           />
         </Center>
         <Box py="1rem">
-          <Text fontSize="2.75rem" textAlign="center" fontWeight="semibold">
+          <Text fontSize="2.25rem" textAlign="center" fontWeight="semibold">
             What We Offer
           </Text>
-          <Text textAlign="center" fontWeight="bold" color="lxPurple">
+          <Text
+            textAlign="center"
+            fontWeight="semibold"
+            fontSize="xl"
+            color="lxPurple"
+          >
             Our services and prices
           </Text>
         </Box>
@@ -31,8 +36,9 @@ const ServiceCard = () => {
         display="flex"
         flexDirection={{ base: 'column', md: 'row' }}
         alignItems="center"
-        justifyContent={{ base: 'center', md: 'space-around' }}
-        my={{ base: '3rem', md: '0rem' }}
+        justifyContent={{ base: 'center', md: 'center' }}
+        px={{ base: '0rem', md: '7rem' }}
+        my={{ base: '1rem', md: '0rem' }}
       >
         {tasks}
       </Box>

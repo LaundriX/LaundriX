@@ -19,10 +19,15 @@ const WorkingCard = () => {
           />
         </Center>
         <Box py="1rem">
-          <Text fontSize="2.75rem" textAlign="center" fontWeight="semibold">
+          <Text fontSize="2.25rem" textAlign="center" fontWeight="semibold">
             How It Works
           </Text>
-          <Text textAlign="center" fontWeight="bold" color="lxPurple">
+          <Text
+            textAlign="center"
+            fontWeight="semibold"
+            fontSize="xl"
+            color="lxPurple"
+          >
             We collect, clean and deliver you laundry and dry cleaning in 24
             hours
           </Text>
@@ -34,6 +39,7 @@ const WorkingCard = () => {
           flexDirection={{ base: 'column', md: 'row' }}
           alignItems="center"
           justifyContent={{ base: 'center', md: 'space-around' }}
+          px={{ base: '0rem', md: '7rem' }}
           my={{ base: '3rem', md: '0rem' }}
         >
           {procedures}

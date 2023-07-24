@@ -6,15 +6,14 @@ import { Box, Image, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 const CardWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   perspective: 2000;
   width: 100%;
 `;
 const Card = styled(motion.div)`
-    width:13rem;
-    height:13rem;
+    width:15rem;
+    height:15rem;
     min-width:{{base:'auto', md:'15rem'}};
     min-height:{{base:'auto', md:'15rem'}};
     display:flex;
@@ -43,12 +42,15 @@ const CircleWrapper = styled.div`
   background-color: #584bac20;
 `;
 const Circle = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 13rem;
+  position: relative;
+  width: 90%;
+  height: 12rem;
   z-index: 3;
   background-color: #584bac20;
   border-radius: 50%;
+  padding: 1rem;
+  margin: auto;
+  margin-top: 1rem;
 `;
 const Service = (props) => {
   const x = useMotionValue(0);
@@ -70,20 +72,15 @@ const Service = (props) => {
         alignItems="center"
         justifyContent="center"
       >
-        <Card className="box">
+        <Card>
           <CircleWrapper>
             <Circle>
-              <Image
-                src={`assets/${props.task.image}`}
-                margin="auto"
-                w="90%"
-                pt="0.5rem"
-              />
+              <Image src={`assets/${props.task.image}`} margin="auto" w="85%" />
             </Circle>
           </CircleWrapper>
         </Card>
       </CardWrapper>
-      <Text color="lxPurple" fontWeight="bold" fontSize="1.25rem">
+      <Text fontWeight="semibold" fontSize="1.25rem" color="#464550">
         {props.task.title}
       </Text>
     </Box>

@@ -12,7 +12,7 @@ const CardWrapper = styled.div`
 `;
 const Card = styled(motion.div)`
     width:15rem;
-    height:12rem;
+    height:15rem;
     min-width:{{base:'auto', md:'15rem'}};
     min-height:{{base:'auto', md:'15rem'}};
     display:flex;
@@ -40,12 +40,14 @@ const CircleWrapper = styled.div`
   background-color: ##fff2;
 `;
 const Circle = styled.div`
-  position: absolute;
-  width: 100%;
+  position: relative;
+  width: 85%;
   height: 13rem;
   z-index: 3;
   background-color: #fff2;
   border-radius: 50%;
+  margin: auto;
+  margin-top: 2rem;
 `;
 const Working = (props) => {
   return (
@@ -66,21 +68,22 @@ const Working = (props) => {
               <Image
                 src={`assets/${props.procedure.image}`}
                 margin="auto"
-                w="90%"
+                w="100%"
                 pt="0.5rem"
               />
             </Circle>
           </CircleWrapper>
         </Card>
       </CardWrapper>
-      <Text color="lxPurple" fontWeight="bold" fontSize="1.25rem">
+      <Text fontWeight="semibold" fontSize="1.5rem" mt="-0.5rem" mb="1rem">
         {props.procedure.title}
       </Text>
       <Text
-        color="slategray"
+        color="#00000099"
         maxWidth="15rem"
         maxHeight="2rem"
         textAlign="center"
+        fontWeight="semibold"
       >
         {props.procedure.desc}
       </Text>
