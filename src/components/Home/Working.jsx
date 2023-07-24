@@ -75,7 +75,7 @@ const Working = (props) => {
           </CircleWrapper>
         </Card>
       </CardWrapper>
-      <Text fontWeight="semibold" fontSize="1.5rem" mt="-0.5rem" mb="1rem">
+      <Text fontSize="1.5rem" mt="-0.5rem" mb="1rem">
         {props.procedure.title}
       </Text>
       <Text
