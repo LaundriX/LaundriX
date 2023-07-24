@@ -68,14 +68,9 @@ function Navbar() {
         h={['50px', '55px', '70px']}
         boxShadow="0px 2px 3px lightgray"
         pr={['15px', '30px']}
+        bgColor="white"
+        zIndex="1"
       >
-        {/* <Flex
-          w={['', '310px', '400px', '480px']}
-          align="center"
-          justify="space-between"
-          fontWeight="500"
-        > */}
-        {/* FONT FAMILY CAN BE DECIDED LATER */}
         <Link to="/">
           <Text
             color="#584BAC"
@@ -86,19 +81,6 @@ function Navbar() {
             LaundriX
           </Text>
         </Link>
-        {/* {windowWidth >= 480 && (
-            <Flex
-              align="center"
-              justify="space-between"
-              w={['', '145px', '180px', '210px']}
-              color="rgba(0, 0, 0, 0.60)"
-              fontSize={['', '0.8rem', '1rem', '1.1rem']}
-            >
-              <Text>How it works ?</Text>
-              <Text>Services</Text>
-            </Flex>
-          )} */}
-        {/* </Flex> */}
         <Spacer />
         {userEmail ? (
           <Flex
