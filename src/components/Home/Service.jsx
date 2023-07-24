@@ -80,7 +80,7 @@ const Service = (props) => {
           </CircleWrapper>
         </Card>
       </CardWrapper>
-      <Text fontWeight="semibold" fontSize="1.25rem" color="#464550">
+      <Text fontSize="1.25rem" color="#464550">
         {props.task.title}
       </Text>
     </Box>
