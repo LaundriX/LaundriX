@@ -19,12 +19,12 @@ const WorkingCard = () => {
           />
         </Center>
         <Box py="1rem">
-          <Text fontSize="2.25rem" textAlign="center" fontWeight="semibold">
-            How It Works
+          <Text fontSize="2.25rem" textAlign="center">
+            How it works
           </Text>
           <Text
             textAlign="center"
-            fontWeight="semibold"
+            fontWeight="light"
             fontSize="xl"
             color="lxPurple"
           >
