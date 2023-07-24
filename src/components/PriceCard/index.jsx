@@ -58,6 +58,7 @@ function PriceCard(props) {
           </h2>
           <AccordionPanel pb={4}>{Order}</AccordionPanel>
         </AccordionItem>
+        {console.log()}
 
         {/* <AccordionItem>
     <h2>

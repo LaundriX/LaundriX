@@ -3,6 +3,7 @@ import PowerCleanList from '../../TempData/PowerCleanList';
 import { Box, Image, Heading, Text, Flex, Button } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
 import PriceCard from '../PriceCard';
+import usePowerCleanOrderStore from '../Store/PowerCleanOrderStore';
 
 let quantityChecker = 0;
 const reducer = (state, action) => {
@@ -34,6 +35,12 @@ const PowerCleanCard = () => {
     dispatch({ type: 'DECREMENT', payload: index });
   };
 
+  const { incrementPowerCleanQuantity, decrementPowerCleanQuantity } =
+    usePowerCleanOrderStore((state) => ({
+      incrementPowerCleanQuantity: state.incrementPowerCleanQuantity,
+      decrementPowerCleanQuantity: state.decrementPowerCleanQuantity,
+    }));
+
   const card = items.map((value, index) => {
     return (
       <Flex
@@ -64,7 +71,9 @@ const PowerCleanCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker -= 1), handleDecrement(index);
+              (quantityChecker -= 1),
+                handleDecrement(index),
+                decrementPowerCleanQuantity(index);
             }}
           />
           <Text mx={2}>{value.quantity}</Text>
@@ -73,7 +82,9 @@ const PowerCleanCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker += 1), handleIncrement(index);
+              (quantityChecker += 1),
+                handleIncrement(index),
+                incrementPowerCleanQuantity(index);
             }}
           />
         </Flex>

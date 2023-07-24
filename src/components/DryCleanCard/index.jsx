@@ -3,6 +3,7 @@ import DryCleanList from '../../TempData/DryCleanList';
 import { Box, Image, Heading, Text, Flex, Button } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
 import PriceCard from '../PriceCard';
+import useDryCleanOrderStore from '../Store/DryCleanOrderStore';
 
 let quantityChecker = 0;
 const reducer = (state, action) => {
@@ -34,6 +35,13 @@ const DryCleanCard = () => {
     dispatch({ type: 'DECREMENT', payload: index });
   };
 
+  const { incrementDryCleanQuantity, decrementDryCleanQuantity } =
+    useDryCleanOrderStore((state) => ({
+      dryCleanOrders: state.dryCleanOrders,
+      incrementDryCleanQuantity: state.incrementDryCleanQuantity,
+      decrementDryCleanQuantity: state.decrementDryCleanQuantity,
+    }));
+
   const card = items.map((value, index) => {
     return (
       <Flex
@@ -64,7 +72,9 @@ const DryCleanCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker -= 1), handleDecrement(index);
+              (quantityChecker -= 1),
+                handleDecrement(index),
+                decrementDryCleanQuantity(index);
             }}
           />
           <Text mx={2}>{value.quantity}</Text>
@@ -73,7 +83,9 @@ const DryCleanCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker += 1), handleIncrement(index);
+              (quantityChecker += 1),
+                handleIncrement(index),
+                incrementDryCleanQuantity(index);
             }}
           />
         </Flex>

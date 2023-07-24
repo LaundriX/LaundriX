@@ -3,6 +3,7 @@ import OrderList from '../../TempData/OrderList';
 import { Box, Image, Heading, Text, Flex, Button } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
 import PriceCard from '../PriceCard';
+import useWashOrderStore from '../Store/WashOrderStore';
 
 let quantityChecker = 0;
 const reducer = (state, action) => {
@@ -33,6 +34,12 @@ const LaundryOrderCard = () => {
   const handleDecrement = (index) => {
     dispatch({ type: 'DECREMENT', payload: index });
   };
+  const { incrementWashQuantity, decrementWashQuantity } = useWashOrderStore(
+    (state) => ({
+      incrementWashQuantity: state.incrementWashQuantity,
+      decrementWashQuantity: state.decrementWashQuantity,
+    })
+  );
 
   const card = items.map((value, index) => {
     return (
@@ -64,7 +71,9 @@ const LaundryOrderCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker -= 1), handleDecrement(index);
+              (quantityChecker -= 1),
+                handleDecrement(index),
+                decrementWashQuantity(index);
             }}
           />
           <Text mx={2}>{value.quantity}</Text>
@@ -73,7 +82,9 @@ const LaundryOrderCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker += 1), handleIncrement(index);
+              (quantityChecker += 1),
+                handleIncrement(index),
+                incrementWashQuantity(index);
             }}
           />
         </Flex>
