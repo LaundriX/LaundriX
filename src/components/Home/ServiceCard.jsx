@@ -20,7 +20,7 @@ const ServiceCard = () => {
         </Center>
         <Box py="1rem">
           <Heading textAlign="center">
-            What We Offer
+            What we offer
           </Text>
           <Text
             textAlign="center"
