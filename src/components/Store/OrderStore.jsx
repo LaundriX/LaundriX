@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import PowerCleanList from '../../TempData/PowerCleanList';
 import WashList from '../../TempData/WashList';
 import DryCleanList from '../../TempData/DryCleanList';
