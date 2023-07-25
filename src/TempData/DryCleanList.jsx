@@ -1,4 +1,4 @@
-const DryCleanList = [
+export default [
   {
     image: 'shirt.svg',
     item: 'Shirt',
@@ -24,5 +24,3 @@ const DryCleanList = [
     quantity: 0,
   },
 ];
-
-export default DryCleanList;

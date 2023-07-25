@@ -1,48 +1,20 @@
-import React, { useReducer } from 'react';
-import DryCleanList from '../../TempData/DryCleanList';
 import { Box, Image, Heading, Text, Flex, Button } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
 import PriceCard from '../PriceCard';
-import useDryCleanOrderStore from '../Store/DryCleanOrderStore';
+import useOrderStore from '../Store/OrderStore';
 
 let quantityChecker = 0;
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state.map((item, index) =>
-        index === action.payload
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-    case 'DECREMENT':
-      return state.map((item, index) =>
-        index === action.payload
-          ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
-          : item
-      );
-    default:
-      return state;
-  }
-};
+
 const DryCleanCard = () => {
-  const [items, dispatch] = useReducer(reducer, DryCleanList);
+  const { Orders, incrementQuantity, decrementQuantity } = useOrderStore(
+    (state) => ({
+      Orders: state.Orders,
+      incrementQuantity: state.incrementQuantity,
+      decrementQuantity: state.decrementQuantity,
+    })
+  );
 
-  const handleIncrement = (index) => {
-    dispatch({ type: 'INCREMENT', payload: index });
-  };
-
-  const handleDecrement = (index) => {
-    dispatch({ type: 'DECREMENT', payload: index });
-  };
-
-  const { incrementDryCleanQuantity, decrementDryCleanQuantity } =
-    useDryCleanOrderStore((state) => ({
-      dryCleanOrders: state.dryCleanOrders,
-      incrementDryCleanQuantity: state.incrementDryCleanQuantity,
-      decrementDryCleanQuantity: state.decrementDryCleanQuantity,
-    }));
-
-  const card = items.map((value, index) => {
+  const card = Orders[0][2].map((value, index) => {
     return (
       <Flex
         key={index}
@@ -72,9 +44,7 @@ const DryCleanCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker -= 1),
-                handleDecrement(index),
-                decrementDryCleanQuantity(index);
+              (quantityChecker -= 1), decrementQuantity(2, index);
             }}
           />
           <Text mx={2}>{value.quantity}</Text>
@@ -83,9 +53,7 @@ const DryCleanCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker += 1),
-                handleIncrement(index),
-                incrementDryCleanQuantity(index);
+              (quantityChecker += 1), incrementQuantity(2, index);
             }}
           />
         </Flex>
@@ -96,25 +64,26 @@ const DryCleanCard = () => {
   return (
     <Flex gap="15rem" mt="5rem" justifyContent="center">
       <Box>{card}</Box>
-      <Box
+      <Flex
+        flexDirection="column"
+        justifyContent="space-between"
         minWidth="30rem"
         boxShadow="0px 0px 20px 0px rgba(0, 0, 0, 0.20)"
         borderRadius="1.25rem"
       >
-        {quantityChecker != 0 ? (
-          <PriceCard list={items} header="DryClean" />
-        ) : null}
+        {quantityChecker != 0 ? <PriceCard header="Wash" /> : null}
         <Box>
           <Button
             bg="lxRed"
             color="lxLightPurple"
-            position="absolute"
-            bottom="0"
+            mb="1rem"
+            width="40%"
+            borderRadius="1.2rem"
           >
             Confirm Order
           </Button>
         </Box>
-      </Box>
+      </Flex>
     </Flex>
   );
 };

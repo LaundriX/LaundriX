@@ -10,21 +10,34 @@ import {
   Flex,
   Text,
 } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
 import { LuIndianRupee } from 'react-icons/lu';
+import useOrderStore from '../Store/OrderStore';
 
-PriceCard.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      item: PropTypes.string,
-      price: PropTypes.number,
-      quantity: PropTypes.number,
-    })
-  ),
-  header: PropTypes.string,
-};
-function PriceCard(props) {
-  const Order = props.list.map((value, index) => {
+function PriceCard() {
+  const { Orders } = useOrderStore((state) => ({
+    Orders: state.Orders,
+  }));
+
+  const washOrder = Orders[0][0].map((value, index) => {
+    return value.quantity != 0 ? (
+      <Flex key={index} justifyContent="space-between">
+        <Flex>
+          <Box> {`${value.quantity}x`}</Box>
+          <Box mb="2px">{value.item}</Box>
+        </Flex>
+        <Flex alignItems="center" color="lxRed">
+          <Box>
+            <LuIndianRupee />
+          </Box>
+          <Box>
+            <Text>{value.quantity * value.price}</Text>
+          </Box>
+        </Flex>
+      </Flex>
+    ) : null;
+  });
+
+  const powerCleanOrder = Orders[0][1].map((value, index) => {
     return value.quantity != 0 ? (
       <Flex key={index} justifyContent="space-between">
         <Flex>
@@ -36,46 +49,89 @@ function PriceCard(props) {
             <LuIndianRupee />
           </Box>
           <Box>
-            <Text>{value.quantity * Number(value.price)}</Text>
+            <Text>{value.quantity * value.price}</Text>
           </Box>
         </Flex>
       </Flex>
     ) : null;
   });
+
+  const dryCleanOrder = Orders[0][2].map((value, index) => {
+    return value.quantity != 0 ? (
+      <Flex key={index} justifyContent="space-between">
+        <Flex>
+          <Box> {`${value.quantity}x`}</Box>
+          <Box>{value.item}</Box>
+        </Flex>
+        <Flex alignItems="center" color="lxRed">
+          <Box>
+            <LuIndianRupee />
+          </Box>
+          <Box>
+            <Text>{value.quantity * value.price}</Text>
+          </Box>
+        </Flex>
+      </Flex>
+    ) : null;
+  });
+
   return (
     <>
-      <Accordion>
-        <AccordionItem>
+      <Accordion defaultIndex={[0]} allowMultiple border="white" pt={10}>
+        <AccordionItem pr={10} pl={10}>
           <h2>
-            <AccordionButton>
+            <AccordionButton borderRadius="1.25rem">
               <Box as="span" flex="1" textAlign="left">
-                <Heading color="lxPurple" size="md">
-                  {props.header}
+                <Heading color="lxPurple" size="md" p="0" m="0">
+                  Wash & Iron
                 </Heading>
               </Box>
               <AccordionIcon />
             </AccordionButton>
           </h2>
-          <AccordionPanel pb={4}>{Order}</AccordionPanel>
+          <AccordionPanel>{washOrder}</AccordionPanel>
         </AccordionItem>
-        {console.log()}
 
-        {/* <AccordionItem>
-    <h2>
-      <AccordionButton>
-        <Box as="span" flex='1' textAlign='left'>
-          Section 2 title
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-    </h2>
-    <AccordionPanel pb={4}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </AccordionPanel>
-  </AccordionItem> */}
+        <AccordionItem pr={10} pl={10}>
+          <h2>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                <Heading color="lxPurple" size="md">
+                  Power clean
+                </Heading>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel>{powerCleanOrder}</AccordionPanel>
+        </AccordionItem>
+
+        <AccordionItem pr={10} pl={10}>
+          <h2>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                <Heading color="lxPurple" size="md">
+                  Dry clean
+                </Heading>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel>{dryCleanOrder}</AccordionPanel>
+        </AccordionItem>
+        <AccordionItem pr={10} pl={10}>
+          <h2>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                <Heading color="lxPurple" size="md">
+                  Total
+                </Heading>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel>hi</AccordionPanel>
+        </AccordionItem>
       </Accordion>
     </>
   );

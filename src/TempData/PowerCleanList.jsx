@@ -1,4 +1,4 @@
-const PowerCleanList = [
+export default [
   {
     image: 'shirt.svg',
     item: 'Shirt',
@@ -24,5 +24,3 @@ const PowerCleanList = [
     quantity: 0,
   },
 ];
-
-export default PowerCleanList;

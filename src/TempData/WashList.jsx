@@ -1,4 +1,4 @@
-const LaundryOrderList = [
+export default [
   {
     image: 'shirt.svg',
     item: 'Shirt',
@@ -24,5 +24,3 @@ const LaundryOrderList = [
     quantity: 0,
   },
 ];
-
-export default LaundryOrderList;
