@@ -4,11 +4,13 @@ import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
 import PriceCard from '../PriceCard';
 import useOrderStore from '../Store/OrderStore';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 const OrderCard = (props) => {
   OrderCard.propTypes = {
     index: PropTypes.number,
   };
+  const navigate = useNavigate();
   const { Orders, incrementQuantity, decrementQuantity } = useOrderStore(
     (state) => ({
       Orders: state.Orders,
@@ -81,6 +83,9 @@ const OrderCard = (props) => {
             mb="1rem"
             width="40%"
             borderRadius="1.2rem"
+            onClick={() => {
+              navigate('/CheckoutPage');
+            }}
           >
             Confirm Order
           </Button>
