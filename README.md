@@ -31,7 +31,6 @@ Users will be able to book and place order for their preferred service, select c
 * Google Firebase
 
 ## Others
-* React-icons
 * Framer Motion
 * Lottie-react
 * Zustand
