@@ -1,7 +1,5 @@
 import React from 'react';
-import LaundryOrderCard from '../../components/LaundryOrderCard';
-import PowerCleanCard from '../../components/PowerCleanCard';
-import DryCleanCard from '../../components/DryCleanCard';
+import OrderCard from '../../components/OrderCard/OrderCard';
 import Navbar from '../../components/Navbar';
 import {
   Tabs,
@@ -45,13 +43,13 @@ function OrderList() {
           />
           <TabPanels>
             <TabPanel>
-              <LaundryOrderCard />
+              <OrderCard index={0} />
             </TabPanel>
             <TabPanel>
-              <PowerCleanCard />
+              <OrderCard index={1} />
             </TabPanel>
             <TabPanel>
-              <DryCleanCard />
+              <OrderCard index={2} />
             </TabPanel>
           </TabPanels>
         </Tabs>
