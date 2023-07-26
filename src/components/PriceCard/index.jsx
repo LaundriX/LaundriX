@@ -9,13 +9,19 @@ import {
   Heading,
   Flex,
   Text,
+  Image,
 } from '@chakra-ui/react';
 import { LuIndianRupee } from 'react-icons/lu';
 import useOrderStore from '../Store/OrderStore';
+import PropTypes from 'prop-types';
 
-function PriceCard() {
-  const { Orders } = useOrderStore((state) => ({
+function PriceCard(props) {
+  PriceCard.propTypes = {
+    index: PropTypes.number,
+  };
+  const { Orders, Total } = useOrderStore((state) => ({
     Orders: state.Orders,
+    Total: state.Total,
   }));
 
   const washOrder = Orders[0][0].map((value, index) => {
@@ -77,62 +83,68 @@ function PriceCard() {
 
   return (
     <>
-      <Accordion defaultIndex={[0]} allowMultiple border="white" pt={10}>
-        <AccordionItem pr={10} pl={10}>
-          <h2>
-            <AccordionButton borderRadius="1.25rem">
-              <Box as="span" flex="1" textAlign="left">
-                <Heading color="lxPurple" size="md" p="0" m="0">
-                  Wash & Iron
-                </Heading>
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel>{washOrder}</AccordionPanel>
-        </AccordionItem>
+      <Box>
+        <Accordion
+          defaultIndex={[props.index]}
+          allowMultiple
+          border="white"
+          pt={10}
+        >
+          <AccordionItem pr={10} pl={10}>
+            <h2>
+              <AccordionButton borderRadius="1.25rem">
+                <Box as="span" flex="1" textAlign="left">
+                  <Heading color="lxPurple" size="md" p="0" m="0">
+                    Wash & Iron
+                  </Heading>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel>{washOrder}</AccordionPanel>
+          </AccordionItem>
 
-        <AccordionItem pr={10} pl={10}>
-          <h2>
-            <AccordionButton>
-              <Box as="span" flex="1" textAlign="left">
-                <Heading color="lxPurple" size="md">
-                  Power clean
-                </Heading>
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel>{powerCleanOrder}</AccordionPanel>
-        </AccordionItem>
+          <AccordionItem pr={10} pl={10}>
+            <h2>
+              <AccordionButton>
+                <Box as="span" flex="1" textAlign="left">
+                  <Heading color="lxPurple" size="md">
+                    Power clean
+                  </Heading>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel>{powerCleanOrder}</AccordionPanel>
+          </AccordionItem>
 
-        <AccordionItem pr={10} pl={10}>
-          <h2>
-            <AccordionButton>
-              <Box as="span" flex="1" textAlign="left">
-                <Heading color="lxPurple" size="md">
-                  Dry clean
-                </Heading>
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel>{dryCleanOrder}</AccordionPanel>
-        </AccordionItem>
-        <AccordionItem pr={10} pl={10}>
-          <h2>
-            <AccordionButton>
-              <Box as="span" flex="1" textAlign="left">
-                <Heading color="lxPurple" size="md">
-                  Total
-                </Heading>
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel>hi</AccordionPanel>
-        </AccordionItem>
-      </Accordion>
+          <AccordionItem pr={10} pl={10}>
+            <h2>
+              <AccordionButton>
+                <Box as="span" flex="1" textAlign="left">
+                  <Heading color="lxPurple" size="md">
+                    Dry clean
+                  </Heading>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel>{dryCleanOrder}</AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+        <Flex pr={9} pl={9} alignItems="center" justifyContent="space-between">
+          <Flex alignItems="center" gap="1rem">
+            <Image src="/assets/total.svg" />
+            <Heading size="md" fontWeight="light">
+              Total
+            </Heading>
+          </Flex>
+          <Flex alignItems="center" color="lxRed">
+            <LuIndianRupee />
+            <Text>{Total}</Text>
+          </Flex>
+        </Flex>
+      </Box>
     </>
   );
 }

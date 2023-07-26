@@ -1,11 +1,14 @@
+import React from 'react';
 import { Box, Image, Heading, Text, Flex, Button } from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
 import PriceCard from '../PriceCard';
 import useOrderStore from '../Store/OrderStore';
+import PropTypes from 'prop-types';
 
-let quantityChecker = 0;
-
-const DryCleanCard = () => {
+const OrderCard = (props) => {
+  OrderCard.propTypes = {
+    index: PropTypes.number,
+  };
   const { Orders, incrementQuantity, decrementQuantity } = useOrderStore(
     (state) => ({
       Orders: state.Orders,
@@ -13,8 +16,7 @@ const DryCleanCard = () => {
       decrementQuantity: state.decrementQuantity,
     })
   );
-
-  const card = Orders[0][2].map((value, index) => {
+  const card = Orders[0][props.index].map((value, index) => {
     return (
       <Flex
         key={index}
@@ -44,7 +46,7 @@ const DryCleanCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker -= 1), decrementQuantity(2, index);
+              decrementQuantity(props.index, index);
             }}
           />
           <Text mx={2}>{value.quantity}</Text>
@@ -53,7 +55,7 @@ const DryCleanCard = () => {
             size={32}
             strokeWidth={1.5}
             onClick={() => {
-              (quantityChecker += 1), incrementQuantity(2, index);
+              incrementQuantity(props.index, index);
             }}
           />
         </Flex>
@@ -71,7 +73,7 @@ const DryCleanCard = () => {
         boxShadow="0px 0px 20px 0px rgba(0, 0, 0, 0.20)"
         borderRadius="1.25rem"
       >
-        {quantityChecker != 0 ? <PriceCard header="Wash" /> : null}
+        <PriceCard index={props.index} />
         <Box>
           <Button
             bg="lxRed"
@@ -88,4 +90,4 @@ const DryCleanCard = () => {
   );
 };
 
-export default DryCleanCard;
+export default OrderCard;

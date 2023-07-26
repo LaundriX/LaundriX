@@ -6,12 +6,22 @@ import DryCleanList from '../../TempData/DryCleanList';
 const order = [[WashList, PowerCleanList, DryCleanList]];
 const useOrderStore = create((set) => ({
   Orders: [...order],
+  Total: 0,
+
+  setTotal: (value) => {
+    set((state) => {
+      return { ...state, Total: value };
+    });
+  },
 
   // Orders[0][0][0].quantity
   incrementQuantity: (orderIndex, itemIndex) => {
     set((state) => {
       const updatedOrders = [...state.Orders];
       ++updatedOrders[0][orderIndex][itemIndex].quantity;
+      state.setTotal(
+        state.Total + updatedOrders[0][orderIndex][itemIndex].price
+      );
       return { Orders: updatedOrders };
     });
   },
@@ -21,6 +31,9 @@ const useOrderStore = create((set) => ({
       const updatedOrders = [...state.Orders];
       if (updatedOrders[0][orderIndex][itemIndex].quantity > 0) {
         --updatedOrders[0][orderIndex][itemIndex].quantity;
+        state.setTotal(
+          state.Total - updatedOrders[0][orderIndex][itemIndex].price
+        );
       }
       return { Orders: updatedOrders };
     });
