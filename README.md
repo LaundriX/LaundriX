@@ -18,7 +18,7 @@ Users will be able to book and place order for their preferred service, select c
 
 # <img src="https://github.com/NightFury742/LaundriX/assets/119070798/28a131bf-d93f-44a2-b368-7eaa1476685b" height="30px"> Design
 
-[Checkout our Figma project design](https://www.figma.com/file/Yq77JsE5rNfOIuwUEYgqtr/Laundrix?type=design&t=q4XGVlCGgkAkNEar-6)
+[Checkout our Figma design](https://www.figma.com/file/Yq77JsE5rNfOIuwUEYgqtr/Laundrix?type=design&t=q4XGVlCGgkAkNEar-6)
 <Br><Br>
 
 # <img src="https://github.com/NightFury742/LaundriX/assets/119070798/6f622e92-9e0d-492c-a901-c5969a1140c0" height="35"> Tech Stack
@@ -31,6 +31,7 @@ Users will be able to book and place order for their preferred service, select c
 * Google Firebase
 
 ## Others
+* React-icons
 * Framer Motion
 * Lottie-react
 * Zustand
