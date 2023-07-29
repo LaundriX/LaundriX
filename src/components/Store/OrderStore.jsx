@@ -7,7 +7,14 @@ const order = [[WashList, PowerCleanList, DryCleanList]];
 const useOrderStore = create((set) => ({
   Orders: [...order],
   Total: 0,
-
+  coordinates: { latitude: '', longitude: '' },
+  setCoords: (location) => {
+    return set((state) => {
+      return {
+        coordinates: { ...state.coordinates, location },
+      };
+    });
+  },
   setTotal: (value) => {
     set((state) => {
       return { ...state, Total: value };

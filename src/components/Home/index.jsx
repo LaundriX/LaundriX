@@ -3,7 +3,7 @@ import Hero from './Hero';
 import ServiceCard from './ServiceCard';
 import { Box } from '@chakra-ui/react';
 import WorkingCard from './WorkingCard';
-const main = () => {
+const Main = () => {
   return (
     <Box pt="4rem">
       <Hero />
@@ -13,4 +13,4 @@ const main = () => {
   );
 };
 
-export default main;
+export default Main;
