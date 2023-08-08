@@ -18,6 +18,7 @@ function Navbar() {
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   const handleWidth = () => {
     setWindowWidth(window.innerWidth);
   };
@@ -47,7 +48,7 @@ function Navbar() {
     setUserName('');
   }
 
-  const getIconSize = () => {
+  const iconSize = () => {
     if (windowWidth >= 1280) {
       return '26px';
     } else if (windowWidth >= 992) {
@@ -136,7 +137,7 @@ function Navbar() {
             </Flex>
           ) : (
             <Button
-              leftIcon={<FcGoogle style={{ fontSize: getIconSize() }} />}
+              leftIcon={<FcGoogle style={{ fontSize: iconSize() }} />}
               color="rgba(0, 0, 0, 0.60)"
               border="2px solid #584BAC"
               borderRadius="9px"

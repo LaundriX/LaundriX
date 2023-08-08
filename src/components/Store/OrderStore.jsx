@@ -2,11 +2,50 @@ import { create } from 'zustand';
 import PowerCleanList from '../../TempData/PowerCleanList';
 import WashList from '../../TempData/WashList';
 import DryCleanList from '../../TempData/DryCleanList';
+import moment from 'moment/moment';
 
 const order = [[WashList, PowerCleanList, DryCleanList]];
 const useOrderStore = create((set) => ({
   Orders: [...order],
   Total: 0,
+  pickupDate: '',
+  deliveryDate: '-- -- --',
+  pickupTime: '',
+  deliveryTime: '',
+
+  setPickupDate: (value) => {
+    set((state) => {
+      if (value === 'Today')
+        return {
+          ...state,
+          pickupDate: moment().format('Do MMM YYYY'),
+          deliveryDate: moment().add(2, 'days').format('ddd, D MMM YYYY'),
+        };
+      if (value === 'Tomorrow')
+        return {
+          ...state,
+          pickupDate: moment().add(1, 'days').format('ddd, D MMM YYYY'),
+          deliveryDate: moment().add(3, 'days').format('ddd, D MMM YYYY'),
+        };
+      return {
+        ...state,
+        pickupDate: moment().add(2, 'days').format('ddd, D MMM YYYY'),
+        deliveryDate: moment().add(4, 'days').format('ddd, D MMM YYYY'),
+      };
+    });
+  },
+
+  setPickupTime: (value) => {
+    set((state) => {
+      return { ...state, pickupTime: value };
+    });
+  },
+
+  setDeliveryTime: (value) => {
+    set((state) => {
+      return { ...state, deliveryTime: value };
+    });
+  },
 
   setTotal: (value) => {
     set((state) => {

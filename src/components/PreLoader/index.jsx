@@ -1,35 +1,27 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Lottie from 'lottie-react';
 import { Flex } from '@chakra-ui/react';
-import animationData from './preloader_animation.json';
+import animationData from './laundrix.json';
 
 function PreLoader() {
-  const [direction, setDirection] = useState(true);
   const lottieRef = useRef(null);
 
-  const handleComplete = () => {
-    setDirection((prev) => !prev);
+  const setAnimationSpeed = (speed) => {
+    if (lottieRef.current) {
+      lottieRef.current.setSpeed(speed);
+    }
   };
 
   useEffect(() => {
-    if (lottieRef.current) {
-      if (direction) {
-        lottieRef.current.setSpeed(2);
-        lottieRef.current.playSegments([0, animationData.op], true);
-      } else {
-        lottieRef.current.playSegments([animationData.op, 0], true);
-      }
-    }
-  }, [direction]);
+    setAnimationSpeed(1.5);
+  }, []);
 
   return (
     <Flex align="center" justify="center" height="100vh">
       <Lottie
         animationData={animationData}
-        style={{ height: '100rem' }}
+        style={{ height: '15rem' }}
         lottieRef={lottieRef}
-        loop={false}
-        onComplete={handleComplete}
       />
     </Flex>
   );
