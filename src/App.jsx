@@ -13,18 +13,24 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 4000);
   }, []);
 
   return (
     <>
       <Routes>
         <Route path="/" element={isLoading ? <PreLoader /> : <LandingPage />} />
-        <Route path="/OrderList" element={<OrderList />} />
-        <Route path="/CheckoutPage" element={<CheckoutPage />} />
+        <Route
+          path="/OrderList"
+          element={isLoading ? <PreLoader /> : <OrderList />}
+        />
+        <Route
+          path="/CheckoutPage"
+          element={isLoading ? <PreLoader /> : <CheckoutPage />}
+        />
         <Route
           path="/OrderConfirmationPage"
-          element={<OrderConfirmationPage />}
+          element={isLoading ? <PreLoader /> : <OrderConfirmationPage />}
         />
       </Routes>
     </>
