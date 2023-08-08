@@ -54,7 +54,7 @@ const CheckoutPage = () => {
         >
           <Flex justify="space-between" align="center">
             <Image
-              src="public\assets\icons8-calendar-64.png"
+              src="assets/Laundrix/Outline/Calendar-Add/24px.svg"
               boxSize="35px"
               mr="10px"
             />
@@ -104,7 +104,7 @@ const CheckoutPage = () => {
         >
           <Flex justify="space-between" align="center">
             <Image
-              src="public\assets\icons8-calendar-64.png"
+              src="assets/Laundrix (1)/Outline/Calendar-Check/24px.svg"
               boxSize="35px"
               mr="10px"
             />
