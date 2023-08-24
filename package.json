@@ -8,20 +8,25 @@
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "node": "true"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "firebase": "^10.0.0",
     "framer-motion": "^10.13.1",
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
+    "razorpay": "^2.9.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.14.2",
+    "shortid": "^2.2.16",
     "styled-components": "^6.0.5",
     "zustand": "^4.3.9"
   },
@@ -46,7 +51,7 @@
     "vite": "^4.4.0"
   },
   "lint-staged": {
-    "*.{js,css,ts,tsx,jsx}": [
+    "*.{js,css,ts,tsx,jsx,cjs}": [
       "prettier --write",
       "eslint --fix"
     ]

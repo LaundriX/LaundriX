@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import PowerCleanList from '../../TempData/PowerCleanList';
 import WashList from '../../TempData/WashList';
 import DryCleanList from '../../TempData/DryCleanList';
-import moment from 'moment/moment';
+import moment from 'moment';
 
 const order = [[WashList, PowerCleanList, DryCleanList]];
 const useOrderStore = create((set) => ({
