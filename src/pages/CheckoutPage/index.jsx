@@ -1,13 +1,12 @@
-
-import React from "react";
-import Navbar from "../../components/Navbar";
-import { Button, Image, Text, Flex, Divider, Select } from "@chakra-ui/react";
-import useOrderStore from "../../components/Store/OrderStore";
-import moment from "moment/moment";
+import React from 'react';
+import Navbar from '../../components/Navbar';
+import { Button, Image, Text, Flex, Divider, Select } from '@chakra-ui/react';
+import useOrderStore from '../../components/Store/OrderStore';
+import moment from 'moment';
 
 function loadScript(src) {
   return new Promise((resolve) => {
-    const script = document.createElement("script");
+    const script = document.createElement('script');
     script.src = src;
     script.onload = () => {
       resolve(true);
@@ -43,52 +42,52 @@ const CheckoutPage = () => {
 
   async function paymentHandler() {
     const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
+      'https://checkout.razorpay.com/v1/checkout.js'
     );
 
     if (!res) {
-      alert("Razorpay SDK failed to load");
+      alert('Razorpay SDK failed to load');
       return;
     }
-    const  payment_amount  = Total;
+    const payment_amount = Total;
 
     const options = {
       key: import.meta.env.VITE_RZP_KEY_ID,
       amount: payment_amount * 100,
-      name: "Payments",
-      description: "Donate yourself some time",
+      name: 'Payments',
+      description: 'Donate yourself some time',
 
       handler(response) {
         const paymentId = response.razorpay_payment_id;
         const url =
           import.meta.env.URL +
-          "/api/v1/rzp_capture/" +
+          '/api/v1/rzp_capture/' +
           paymentId +
-          "/" +
+          '/' +
           payment_amount;
         // Using my server endpoints to capture the payment
         fetch(url, {
-          method: "get",
+          method: 'get',
           headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
           },
         })
           .then((resp) => resp.json())
           .then(function (data) {
-            console.log("Request succeeded with JSON response", data);
+            console.log('Request succeeded with JSON response', data);
             self.setState({
               refund_id: response.razorpay_payment_id,
             });
           })
           .catch(function (error) {
-            console.log("Request failed", error);
+            console.log('Request failed', error);
           });
       },
       notes: {
-        address: "IIITDM JABALPUR",
+        address: 'IIITDM JABALPUR',
       },
       theme: {
-        color: "#584BAC",
+        color: '#584BAC',
       },
     };
     const rzp1 = new window.Razorpay(options);
@@ -138,12 +137,12 @@ const CheckoutPage = () => {
             fontWeight="medium"
             border="none"
           >
-            <option value="Today">{moment().format("ddd, D MMM YYYY")}</option>
+            <option value="Today">{moment().format('ddd, D MMM YYYY')}</option>
             <option value="Tomorrow">
-              {moment().add(1, "days").format("ddd, D MMM YYYY")}
+              {moment().add(1, 'days').format('ddd, D MMM YYYY')}
             </option>
             <option value="Day After Tomorrow">
-              {moment().add(2, "days").format("ddd, D MMM YYYY")}
+              {moment().add(2, 'days').format('ddd, D MMM YYYY')}
             </option>
           </Select>
           <Select
