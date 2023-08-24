@@ -54,18 +54,24 @@ To run the project locally on your sysmtem , the following softwares must be ins
      ```
      git clone https://github.com/<your_username>/LaundriX.git
      ```
-3. Open your terminal, navigate to the desired directory.
+3.  Navigate to the project directory.
      ```
      cd LaundriX
      ```
-4. Install dependencies.
+4. Open the terminal and type.
      ```
-      npm install
+     cd backend
+     npm i
+     cd src
+     npm start
      ```
-5. Run the website locally.
-     ```
-     npm run dev
-     ```
+     
+5. Open another terminal and type.
+   ```
+   npm i
+   npm run dev
+   ```
+
 
 # <img height="40px" src="https://github.com/NightFury742/LaundriX/assets/119070798/143a52c0-b60d-4f57-b38f-3e5156e124d9"> License
 
