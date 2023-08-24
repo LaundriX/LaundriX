@@ -1,0 +1,15 @@
+{
+    "builds": [
+      {
+        "src": "frontend/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distPath": "frontend/build"
+        }
+      }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/frontend/build/$1" }
+    ]
+  }
+  
