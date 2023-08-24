@@ -1,12 +1,13 @@
-import React from 'react';
-import Navbar from '../../components/Navbar';
-import { Button, Image, Text, Flex, Divider, Select } from '@chakra-ui/react';
-import useOrderStore from '../../components/Store/OrderStore';
-import moment from 'moment/moment';
+
+import React from "react";
+import Navbar from "../../components/Navbar";
+import { Button, Image, Text, Flex, Divider, Select } from "@chakra-ui/react";
+import useOrderStore from "../../components/Store/OrderStore";
+import moment from "moment/moment";
 
 function loadScript(src) {
   return new Promise((resolve) => {
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = src;
     script.onload = () => {
       resolve(true);
@@ -19,13 +20,13 @@ function loadScript(src) {
 }
 
 const CheckoutPage = () => {
-
-  const { setPickupDate, setPickupTime, setDeliveryTime, deliveryDate } =
+  const { setPickupDate, setPickupTime, setDeliveryTime, deliveryDate, Total } =
     useOrderStore((state) => ({
       setPickupDate: state.setPickupDate,
       setPickupTime: state.setPickupTime,
       setDeliveryTime: state.setDeliveryTime,
       deliveryDate: state.deliveryDate,
+      Total: state.Total,
     }));
 
   function handlePickupDate(e) {
@@ -40,44 +41,64 @@ const CheckoutPage = () => {
     setDeliveryTime(e.target.value);
   }
 
-  async function displayRazorpay() {
+  async function paymentHandler() {
     const res = await loadScript(
-      'https://checkout.razorpay.com/v1/checkout.js'
+      "https://checkout.razorpay.com/v1/checkout.js"
     );
 
     if (!res) {
-      alert('Razorpay SDK failed to load');
+      alert("Razorpay SDK failed to load");
       return;
     }
-
-    const data = await fetch('http://localhost:8000/CheckoutPage/razorpay', {
-      method: 'POST',
-    }).then((t) => t.json());
-    console.log(data)
+    const  payment_amount  = Total;
+    // const self = this;
     const options = {
-      key: 'rzp_test_fOPnnCL2pBt7Bz', // Enter the Key ID generated from the Dashboard
-      amount: data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-      currency: data.currency,
-      name: 'LaundriX', //your business name
-      description: 'Test Transaction',
-      image: 'https://example.com/your_logo',
-      order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      callback_url: 'https://eneqd3r9zrjok.x.pipedream.net/',
-      prefill: {
-        //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-        name: 'Gaurav Kumar', //your customer's name
-        email: 'gaurav.kumar@example.com',
-        contact: '9000090000', //Provide the customer's phone number for better conversion rates
+      key: "rzp_test_fOPnnCL2pBt7Bz",
+      amount: payment_amount * 100,
+      name: "Payments",
+      description: "Donate yourself some time",
+
+      handler(response) {
+        const paymentId = response.razorpay_payment_id;
+        const url =
+          import.meta.env.URL +
+          "/api/v1/rzp_capture/" +
+          paymentId +
+          "/" +
+          payment_amount;
+        // Using my server endpoints to capture the payment
+        fetch(url, {
+          method: "get",
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+          },
+        })
+          .then((resp) => resp.json())
+          .then(function (data) {
+            console.log("Request succeeded with JSON response", data);
+            self.setState({
+              refund_id: response.razorpay_payment_id,
+            });
+          })
+          .catch(function (error) {
+            console.log("Request failed", error);
+          });
       },
-      // notes: {
-      //   address: 'Razorpay Corporate Office',
+
+      // prefill: {
+      //   name: "Shashank Shekhar",
+      //   email: "example@email.com",
       // },
-      // theme: {
-      //   color: '#3399cc',
-      // },
+      notes: {
+        address: "IIITDM JABALPUR",
+      },
+      theme: {
+        color: "#584BAC",
+      },
     };
-    var paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+    const rzp1 = new window.Razorpay(options);
+
+    rzp1.open();
   }
 
   return (
@@ -122,12 +143,12 @@ const CheckoutPage = () => {
             fontWeight="medium"
             border="none"
           >
-            <option value="Today">{moment().format('ddd, D MMM YYYY')}</option>
+            <option value="Today">{moment().format("ddd, D MMM YYYY")}</option>
             <option value="Tomorrow">
-              {moment().add(1, 'days').format('ddd, D MMM YYYY')}
+              {moment().add(1, "days").format("ddd, D MMM YYYY")}
             </option>
             <option value="Day After Tomorrow">
-              {moment().add(2, 'days').format('ddd, D MMM YYYY')}
+              {moment().add(2, "days").format("ddd, D MMM YYYY")}
             </option>
           </Select>
           <Select
@@ -183,7 +204,7 @@ const CheckoutPage = () => {
       </Flex>
       <Button
         onClick={() => {
-          displayRazorpay();
+          paymentHandler();
         }}
       >
         Pay and Confirm
