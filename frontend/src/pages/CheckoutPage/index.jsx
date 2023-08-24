@@ -51,9 +51,9 @@ const CheckoutPage = () => {
       return;
     }
     const  payment_amount  = Total;
-    // const self = this;
+
     const options = {
-      key: "rzp_test_fOPnnCL2pBt7Bz",
+      key: import.meta.env.VITE_RZP_KEY_ID,
       amount: payment_amount * 100,
       name: "Payments",
       description: "Donate yourself some time",
@@ -84,11 +84,6 @@ const CheckoutPage = () => {
             console.log("Request failed", error);
           });
       },
-
-      // prefill: {
-      //   name: "Shashank Shekhar",
-      //   email: "example@email.com",
-      // },
       notes: {
         address: "IIITDM JABALPUR",
       },

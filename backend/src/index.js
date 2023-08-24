@@ -12,8 +12,8 @@ app.use(express.static(path.join(__dirname, 'views')));
 const Razorpay = require('razorpay');
 
 const instance = new Razorpay({
-	key_id: process.env.key_id,
-	key_secret: process.env.key_secret
+	key_id: process.env.VITE_RZP_KEY_ID,
+	key_secret: process.env.VITE_RZP_KEY_SECRET
 });
 
 
