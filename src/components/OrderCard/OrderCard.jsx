@@ -1,5 +1,13 @@
 import React from 'react';
-import { Box, Image, Heading, Text, Flex, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Image,
+  Heading,
+  Text,
+  Flex,
+  Button,
+  useToast,
+} from '@chakra-ui/react';
 import { LuIndianRupee, LuPlusCircle, LuMinusCircle } from 'react-icons/lu';
 import PriceCard from '../PriceCard';
 import useOrderStore from '../Store/OrderStore';
@@ -11,13 +19,22 @@ const OrderCard = (props) => {
     index: PropTypes.number,
   };
   const navigate = useNavigate();
-  const { Orders, incrementQuantity, decrementQuantity } = useOrderStore(
-    (state) => ({
+  const { Orders, incrementQuantity, decrementQuantity, Total, isAuth } =
+    useOrderStore((state) => ({
       Orders: state.Orders,
       incrementQuantity: state.incrementQuantity,
       decrementQuantity: state.decrementQuantity,
-    })
-  );
+      Total: state.Total,
+      isAuth: state.isAuth,
+      userName: state.userName,
+      setUserEmail: state.setUserEmail,
+      setUserName: state.setUserName,
+      addAuth: state.addAuth,
+      removeAuth: state.removeAuth,
+    }));
+
+  const toast = useToast();
+
   const card = Orders[0][props.index].map((value, index) => {
     return (
       <Flex
@@ -84,7 +101,26 @@ const OrderCard = (props) => {
             width="40%"
             borderRadius="1.2rem"
             onClick={() => {
-              navigate('/CheckoutPage');
+              isAuth
+                ? Total
+                  ? navigate('/CheckoutPage')
+                  : toast({
+                      position: 'top',
+                      title: 'Error !',
+                      description: 'Add some items.',
+                      status: 'error',
+                      isClosable: false,
+                      variant: 'subtle',
+                      duration: 2000,
+                    })
+                : toast({
+                    position: 'top',
+                    title: 'Error !',
+                    description: 'Sign in first.',
+                    status: 'error',
+                    variant: 'subtle',
+                    duration: 2000,
+                  });
             }}
           >
             Confirm Order

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Box, Image, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+
 const CardWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -50,6 +52,7 @@ const Circle = styled.div`
   margin-top: 1rem;
 `;
 const Service = (props) => {
+  const navigate = useNavigate();
   return (
     <Box
       display="flex"
@@ -64,7 +67,14 @@ const Service = (props) => {
         <Card>
           <CircleWrapper>
             <Circle>
-              <Image src={`assets/${props.task.image}`} margin="auto" w="85%" />
+              <Image
+                src={`assets/${props.task.image}`}
+                margin="auto"
+                w="85%"
+                onClick={() => {
+                  navigate('/OrderList');
+                }}
+              />
             </Circle>
           </CircleWrapper>
         </Card>
