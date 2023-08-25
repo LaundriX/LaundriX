@@ -1,17 +1,51 @@
 import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
 import PowerCleanList from '../../TempData/PowerCleanList';
 import WashList from '../../TempData/WashList';
 import DryCleanList from '../../TempData/DryCleanList';
 import moment from 'moment';
 
 const order = [[WashList, PowerCleanList, DryCleanList]];
-const useOrderStore = create((set) => ({
+const OrderStore = (set) => ({
   Orders: [...order],
   Total: 0,
   pickupDate: '',
   deliveryDate: '-- -- --',
   pickupTime: '',
   deliveryTime: '',
+  isAuth: false,
+  userEmail: '',
+  userName: '',
+
+  setUserEmail: (value) => {
+    set((state) => {
+      return {
+        ...state,
+        userEmail: value,
+      };
+    });
+  },
+
+  setUserName: (value) => {
+    set((state) => {
+      return {
+        ...state,
+        userName: value,
+      };
+    });
+  },
+
+  addAuth: () => {
+    set((state) => {
+      return { ...state, isAuth: true };
+    });
+  },
+
+  removeAuth: () => {
+    set((state) => {
+      return { ...state, isAuth: false };
+    });
+  },
 
   setPickupDate: (value) => {
     set((state) => {
@@ -77,6 +111,14 @@ const useOrderStore = create((set) => ({
       return { Orders: updatedOrders };
     });
   },
-}));
+});
+
+const useOrderStore = create(
+  devtools(
+    persist(OrderStore, {
+      name: ' store',
+    })
+  )
+);
 
 export default useOrderStore;

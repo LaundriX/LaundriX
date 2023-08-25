@@ -1,6 +1,14 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
-import { Button, Image, Text, Flex, Divider, Select } from '@chakra-ui/react';
+import {
+  Button,
+  Image,
+  Text,
+  Flex,
+  Divider,
+  Select,
+  useToast,
+} from '@chakra-ui/react';
 import useOrderStore from '../../components/Store/OrderStore';
 import moment from 'moment';
 
@@ -19,14 +27,27 @@ function loadScript(src) {
 }
 
 const CheckoutPage = () => {
-  const { setPickupDate, setPickupTime, setDeliveryTime, deliveryDate, Total } =
-    useOrderStore((state) => ({
-      setPickupDate: state.setPickupDate,
-      setPickupTime: state.setPickupTime,
-      setDeliveryTime: state.setDeliveryTime,
-      deliveryDate: state.deliveryDate,
-      Total: state.Total,
-    }));
+  const toast = useToast();
+
+  const {
+    setPickupDate,
+    setPickupTime,
+    setDeliveryTime,
+    deliveryDate,
+    deliveryTime,
+    pickupTime,
+    pickupDate,
+    Total,
+  } = useOrderStore((state) => ({
+    setPickupDate: state.setPickupDate,
+    setPickupTime: state.setPickupTime,
+    setDeliveryTime: state.setDeliveryTime,
+    deliveryDate: state.deliveryDate,
+    pickupTime: state.deliveryTime,
+    deliveryTime: state.deliveryTime,
+    pickupDate: state.pickupDate,
+    Total: state.Total,
+  }));
 
   function handlePickupDate(e) {
     setPickupDate(e.target.value);
@@ -54,8 +75,10 @@ const CheckoutPage = () => {
     const options = {
       key: import.meta.env.VITE_RZP_KEY_ID,
       amount: payment_amount * 100,
-      name: 'Payments',
-      description: 'Donate yourself some time',
+      name: 'LaundriX',
+      image: 'https://i.postimg.cc/hvWF4W7P/SVGRepo-icon-Carrier.png',
+      description: 'Thanks for choosing us!',
+      // callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
 
       handler(response) {
         const paymentId = response.razorpay_payment_id;
@@ -198,7 +221,16 @@ const CheckoutPage = () => {
       </Flex>
       <Button
         onClick={() => {
-          paymentHandler();
+          pickupTime && deliveryTime && pickupDate
+            ? paymentHandler()
+            : toast({
+                position: 'top',
+                title: 'Error !',
+                description: 'Fill in pickup details.',
+                status: 'error',
+                variant: 'subtle',
+                duration: 2000,
+              });
         }}
       >
         Pay and Confirm

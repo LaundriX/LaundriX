@@ -13,10 +13,25 @@ import {
 import { FcGoogle } from 'react-icons/fc';
 import { auth, provider } from '../Authentication/config.jsx';
 import { signInWithPopup } from 'firebase/auth';
+import useOrderStore from '../Store/OrderStore';
 
 function Navbar() {
-  const [userEmail, setUserEmail] = useState('');
-  const [userName, setUserName] = useState('');
+  const {
+    userEmail,
+    userName,
+    setUserName,
+    setUserEmail,
+    addAuth,
+    removeAuth,
+  } = useOrderStore((state) => ({
+    userEmail: state.userEmail,
+    userName: state.userName,
+    setUserEmail: state.setUserEmail,
+    setUserName: state.setUserName,
+    addAuth: state.addAuth,
+    removeAuth: state.removeAuth,
+  }));
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleWidth = () => {
@@ -27,10 +42,12 @@ function Navbar() {
     setUserEmail(localStorage.getItem('email'));
     setUserName(localStorage.getItem('username'));
     window.addEventListener('resize', handleWidth);
+    userName ? addAuth() : removeAuth();
 
     return () => {
       window.removeEventListener('resize', handleWidth);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleClick() {
@@ -39,6 +56,7 @@ function Navbar() {
       setUserName(data.user.displayName);
       localStorage.setItem('email', data.user.email);
       localStorage.setItem('username', data.user.displayName);
+      addAuth();
     });
   }
 
@@ -46,6 +64,7 @@ function Navbar() {
     localStorage.clear();
     setUserEmail('');
     setUserName('');
+    removeAuth();
   }
 
   const iconSize = () => {
