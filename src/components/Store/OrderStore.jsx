@@ -1,11 +1,12 @@
 import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
 import PowerCleanList from '../../TempData/PowerCleanList';
 import WashList from '../../TempData/WashList';
 import DryCleanList from '../../TempData/DryCleanList';
 import moment from 'moment';
 
 const order = [[WashList, PowerCleanList, DryCleanList]];
-const useOrderStore = create((set) => ({
+const OrderStore = (set) => ({
   Orders: [...order],
   Total: 0,
   pickupDate: '',
@@ -110,6 +111,14 @@ const useOrderStore = create((set) => ({
       return { Orders: updatedOrders };
     });
   },
-}));
+});
+
+const useOrderStore = create(
+  devtools(
+    persist(OrderStore, {
+      name: ' store',
+    })
+  )
+);
 
 export default useOrderStore;
