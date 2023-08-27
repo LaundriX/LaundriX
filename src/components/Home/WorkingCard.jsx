@@ -11,7 +11,6 @@ const WorkingCard = () => {
       <Box pt={{ base: '8rem', md: '6rem' }} pb={{ base: '2rem', md: '4rem' }}>
         <Center>
           <Divider
-            maxWidth="960px"
             w="100%"
             color="#AFABAB"
             bgColor="#AFABAB"
@@ -19,13 +18,13 @@ const WorkingCard = () => {
           />
         </Center>
         <Box pt="6rem">
-          <Text fontSize="2.25rem" textAlign="center" fontWeight="semibold">
+          <Text fontSize="5xl" textAlign="center" fontWeight="semibold">
             How It Works
           </Text>
           <Text
             textAlign="center"
             fontWeight="semibold"
-            fontSize="xl"
+            fontSize="2xl"
             color="lxPurple"
           >
             We collect, clean and deliver you laundry and dry cleaning in 24
@@ -36,11 +35,13 @@ const WorkingCard = () => {
       <Box>
         <Box
           display="flex"
-          flexDirection={{ base: 'column', md: 'row' }}
+          flexDirection={{ base: 'column', lg: 'row' }}
           alignItems="center"
-          justifyContent={{ base: 'center', md: 'space-around' }}
-          px={{ base: '0rem', md: '9rem' }}
-          my={{ base: '1rem', md: '0rem' }}
+          justifyContent="center"
+          gap="3.5rem"
+          px={{ base: '0rem', md: '1rem' }}
+          my="1rem"
+          pb="8rem"
         >
           {procedures}
         </Box>

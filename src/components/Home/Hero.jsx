@@ -27,7 +27,7 @@ const Hero = () => {
         alignItems="center"
         justifyContent="space-around"
         mt="5rem"
-        direction={{ base: 'column', md: 'row' }}
+        direction={{ base: 'column', lg: 'row' }}
         px="1rem"
       >
         <Box
@@ -39,10 +39,10 @@ const Hero = () => {
           justifyContent="center"
           order={{ base: '1', md: '0' }}
         >
-          <Heading color="lxPurple" mb="2rem" textAlign="center">
+          <Heading color="lxPurple" mb="2rem" textAlign="center" size="2xl">
             Laundry and Dry Cleaning, Done.
           </Heading>
-          <Text fontSize="xl" textAlign="center">
+          <Text fontSize="xl" textAlign="center" mb="1rem">
             LaundriX picks up, cleans and delivers. Amazingly awesome,
             ridiculously simple.
           </Text>
