@@ -8,10 +8,13 @@ const ServiceCard = () => {
   });
   return (
     <>
-      <Box pt={{ base: '8rem', md: '2rem' }} pb={{ base: '2rem', md: '4rem' }}>
+      <Box
+        pt={{ base: '8rem', md: '2rem' }}
+        pb={{ base: '2rem', md: '4rem' }}
+        mx="1rem"
+      >
         <Center>
           <Divider
-            maxWidth="960px"
             w="100%"
             color="#AFABAB"
             bgColor="#AFABAB"
@@ -19,7 +22,7 @@ const ServiceCard = () => {
           />
         </Center>
         <Box pt="6rem">
-          <Text fontSize="2.25rem" textAlign="center" fontWeight="semibold">
+          <Text fontSize="4xl" textAlign="center" fontWeight="semibold">
             What We Offer
           </Text>
           <Text
@@ -34,9 +37,10 @@ const ServiceCard = () => {
       </Box>
       <Box
         display="flex"
-        flexDirection={{ base: 'column', md: 'row' }}
+        flexDirection={{ base: 'column', lg: 'row' }}
         alignItems="center"
-        justifyContent={{ base: 'center', md: 'center' }}
+        gap="3.5rem"
+        justifyContent="center"
         px={{ base: '0rem', md: '9rem' }}
         my={{ base: '1rem', md: '0rem' }}
       >

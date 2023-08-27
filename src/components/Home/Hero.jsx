@@ -8,8 +8,10 @@ const LandingButton = chakra('button', {
     mt: '2',
     py: '2',
     bg: '#584BAC',
+    width: '10rem',
+    fontSize: '1.3rem',
     color: 'white',
-    rounded: 'md',
+    rounded: 'lg',
     _hover: {
       bg: '#4c4196',
     },
@@ -27,8 +29,9 @@ const Hero = () => {
         alignItems="center"
         justifyContent="space-around"
         mt="5rem"
-        direction={{ base: 'column', md: 'row' }}
+        direction={{ base: 'column', lg: 'row' }}
         px="1rem"
+        mx="1rem"
       >
         <Box
           maxW="32rem"
@@ -39,10 +42,10 @@ const Hero = () => {
           justifyContent="center"
           order={{ base: '1', md: '0' }}
         >
-          <Heading color="lxPurple" mb="2rem" textAlign="center">
+          <Heading color="lxPurple" mb="2rem" textAlign="center" size="2xl">
             Laundry and Dry Cleaning, Done.
           </Heading>
-          <Text fontSize="xl" textAlign="center">
+          <Text fontSize="xl" textAlign="center" mb="1rem">
             LaundriX picks up, cleans and delivers. Amazingly awesome,
             ridiculously simple.
           </Text>
@@ -52,7 +55,7 @@ const Hero = () => {
               navigate('/OrderList');
             }}
           >
-            Click me
+            Place Order
           </LandingButton>
         </Box>
         <Box>

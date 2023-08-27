@@ -19,6 +19,7 @@ const OrderCard = (props) => {
     index: PropTypes.number,
   };
   const navigate = useNavigate();
+
   const { Orders, incrementQuantity, decrementQuantity, Total, isAuth } =
     useOrderStore((state) => ({
       Orders: state.Orders,
@@ -41,23 +42,34 @@ const OrderCard = (props) => {
         key={index}
         boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
         borderRadius="0.5rem"
-        mb={4}
-        minWidth="30rem"
-        height="8rem"
+        mb={{ base: '1.5rem', xs: '2rem', sm: '3rem' }}
+        width={{ base: '17rem', xs: '20rem', sm: '27rem', md: '30rem' }}
+        height={{ base: '5rem', sm: '6.5rem' }}
         alignItems="center"
         justifyContent="space-between"
       >
         <Flex>
           <Box>
-            <Image ml={2} mr={8} src={`/assets/${value.image}`} />
+            <Image
+              width={{ base: '2.5rem', xs: '3rem', sm: '4rem', md: '5rem' }}
+              ml={2}
+              mr={{ base: '1.5rem', sm: '2rem' }}
+              src={`/assets/${value.image}`}
+            />
           </Box>
-          <Box>
-            <Heading size="md">{value.item}</Heading>
-            <Flex alignItems="center">
+          <Flex flexDirection="column">
+            <Heading size={{ base: 'xs', xs: 'sm', sm: 'medium', md: 'md' }}>
+              {value.item}
+            </Heading>
+            <Flex
+              alignItems="center"
+              fontSize={{ base: 'small', xs: 'sm', sm: 'medium', md: 'lg' }}
+              mt={{ base: '0.2rem', sm: '0.7rem' }}
+            >
               <LuIndianRupee color="#CE1567" />
               <Text color="#CE1567">{value.price}</Text>
             </Flex>
-          </Box>
+          </Flex>
         </Flex>
         <Flex mr={5} alignItems="center">
           <LuMinusCircle
@@ -83,18 +95,25 @@ const OrderCard = (props) => {
   });
 
   return (
-    <Flex gap="15rem" mt="5rem" justifyContent="center">
+    <Flex
+      flexDirection={{ base: 'column', xl: 'row' }}
+      gap={{ base: '3rem', xl: '10rem' }}
+      mt="5rem"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Box>{card}</Box>
       <Flex
         flexDirection="column"
         justifyContent="space-between"
-        minWidth="30rem"
         boxShadow="0px 0px 20px 0px rgba(0, 0, 0, 0.20)"
         borderRadius="1.25rem"
+        width={{ base: '17rem', xs: '20rem', sm: '27rem', md: '30rem' }}
       >
         <PriceCard index={props.index} />
         <Box>
           <Button
+            fontSize={{ base: '0.8rem', sm: '1.2rem' }}
             bg="lxRed"
             color="lxLightPurple"
             mb="1rem"

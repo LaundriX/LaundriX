@@ -4,7 +4,6 @@ import Navbar from '../../components/Navbar';
 import {
   Tabs,
   TabList,
-  TabIndicator,
   TabPanel,
   TabPanels,
   Tab,
@@ -23,37 +22,52 @@ function OrderList() {
   }));
 
   useEffect(() => {
-    userName ? addAuth() : removeAuth();
+    userName == null ? removeAuth() : addAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
       <Navbar />
       <Box>
-        <Tabs align="center" mt="10rem" isFitted variant="unstyled">
+        <Tabs
+          align="center"
+          mt={{ base: '6rem', sm: '10rem' }}
+          isFitted
+          variant="unstyled"
+        >
           <TabList
             bgColor="#FAF4FF"
-            minHeight="5rem"
+            minHeight={{ base: '3.2rem', sm: '4.3rem', md: '5rem' }}
             maxWidth="85rem"
             dropShadow="0px 0px 13px rgba(0, 0, 0, 0.25)"
-            borderRadius="1rem"
+            borderRadius={{ base: '0.7rem', sm: '1rem' }}
+            mr="2rem"
+            ml="2rem"
+            mb={{ base: '-3.5rem', sm: '-2rem', md: '-1.5rem' }}
           >
             <Tab _selected={{ color: '#584BAC' }} color="#A8A8A9">
-              <Text fontSize="2xl">Wash & Iron </Text>
+              <Text
+                fontSize={{ base: '11.6px', xs: 'small', sm: 'lg', md: '2xl' }}
+              >
+                Wash & Iron{' '}
+              </Text>
             </Tab>
             <Tab _selected={{ color: '#584BAC' }} color="#A8A8A9">
-              <Text fontSize="2xl">Power Clean </Text>
+              <Text
+                fontSize={{ base: '11.6px', xs: 'small', sm: 'lg', md: '2xl' }}
+              >
+                Power Clean{' '}
+              </Text>
             </Tab>
             <Tab _selected={{ color: '#584BAC' }} color="#A8A8A9">
-              <Text fontSize="2xl">Dry Clean </Text>
+              <Text
+                fontSize={{ base: '11.6px', xs: 'small', sm: 'lg', md: '2xl' }}
+              >
+                Dry Clean{' '}
+              </Text>
             </Tab>
           </TabList>
-          <TabIndicator
-            mt="-1.5px"
-            height="2px"
-            bg="lxPurple"
-            borderRadius="1px"
-          />
+
           <TabPanels>
             <TabPanel>
               <OrderCard index={0} />

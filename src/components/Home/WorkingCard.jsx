@@ -11,15 +11,14 @@ const WorkingCard = () => {
       <Box pt={{ base: '8rem', md: '6rem' }} pb={{ base: '2rem', md: '4rem' }}>
         <Center>
           <Divider
-            maxWidth="960px"
             w="100%"
             color="#AFABAB"
             bgColor="#AFABAB"
             css="height:3px"
           />
         </Center>
-        <Box pt="6rem">
-          <Text fontSize="2.25rem" textAlign="center" fontWeight="semibold">
+        <Box pt="6rem" mx="1rem">
+          <Text fontSize="4xl" textAlign="center" fontWeight="semibold">
             How It Works
           </Text>
           <Text
@@ -36,11 +35,13 @@ const WorkingCard = () => {
       <Box>
         <Box
           display="flex"
-          flexDirection={{ base: 'column', md: 'row' }}
+          flexDirection={{ base: 'column', lg: 'row' }}
           alignItems="center"
-          justifyContent={{ base: 'center', md: 'space-around' }}
-          px={{ base: '0rem', md: '9rem' }}
-          my={{ base: '1rem', md: '0rem' }}
+          justifyContent="center"
+          gap="3.5rem"
+          px={{ base: '0rem', md: '1rem' }}
+          my="1rem"
+          pb="8rem"
         >
           {procedures}
         </Box>
