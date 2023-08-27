@@ -8,7 +8,11 @@ const ServiceCard = () => {
   });
   return (
     <>
-      <Box pt={{ base: '8rem', md: '2rem' }} pb={{ base: '2rem', md: '4rem' }}>
+      <Box
+        pt={{ base: '8rem', md: '2rem' }}
+        pb={{ base: '2rem', md: '4rem' }}
+        mx="1rem"
+      >
         <Center>
           <Divider
             w="100%"
@@ -18,13 +22,13 @@ const ServiceCard = () => {
           />
         </Center>
         <Box pt="6rem">
-          <Text fontSize="5xl" textAlign="center" fontWeight="semibold">
+          <Text fontSize="4xl" textAlign="center" fontWeight="semibold">
             What We Offer
           </Text>
           <Text
             textAlign="center"
             fontWeight="semibold"
-            fontSize="2xl"
+            fontSize="xl"
             color="lxPurple"
           >
             Our services and prices

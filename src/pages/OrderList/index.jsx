@@ -22,7 +22,7 @@ function OrderList() {
   }));
 
   useEffect(() => {
-    userName ? addAuth() : removeAuth();
+    userName == null ? removeAuth() : addAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

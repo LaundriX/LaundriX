@@ -17,14 +17,14 @@ const WorkingCard = () => {
             css="height:3px"
           />
         </Center>
-        <Box pt="6rem">
-          <Text fontSize="5xl" textAlign="center" fontWeight="semibold">
+        <Box pt="6rem" mx="1rem">
+          <Text fontSize="4xl" textAlign="center" fontWeight="semibold">
             How It Works
           </Text>
           <Text
             textAlign="center"
             fontWeight="semibold"
-            fontSize="2xl"
+            fontSize="xl"
             color="lxPurple"
           >
             We collect, clean and deliver you laundry and dry cleaning in 24

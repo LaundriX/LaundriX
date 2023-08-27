@@ -8,8 +8,10 @@ const LandingButton = chakra('button', {
     mt: '2',
     py: '2',
     bg: '#584BAC',
+    width: '10rem',
+    fontSize: '1.3rem',
     color: 'white',
-    rounded: 'md',
+    rounded: 'lg',
     _hover: {
       bg: '#4c4196',
     },
@@ -29,6 +31,7 @@ const Hero = () => {
         mt="5rem"
         direction={{ base: 'column', lg: 'row' }}
         px="1rem"
+        mx="1rem"
       >
         <Box
           maxW="32rem"
@@ -52,7 +55,7 @@ const Hero = () => {
               navigate('/OrderList');
             }}
           >
-            Click me
+            Place Order
           </LandingButton>
         </Box>
         <Box>
