@@ -37,6 +37,7 @@ const CheckoutPage = () => {
     deliveryTime,
     pickupTime,
     pickupDate,
+    // eslint-disable-next-line no-unused-vars
     Total,
   } = useOrderStore((state) => ({
     setPickupDate: state.setPickupDate,
@@ -61,7 +62,7 @@ const CheckoutPage = () => {
     setDeliveryTime(e.target.value);
   }
 
-  async function paymentHandler() {
+  async function displayRazorpay() {
     const res = await loadScript(
       'https://checkout.razorpay.com/v1/checkout.js'
     );
@@ -70,41 +71,33 @@ const CheckoutPage = () => {
       alert('Razorpay SDK failed to load');
       return;
     }
-    const payment_amount = Total;
+
+    const data = await fetch('http://localhost:3000/razorpay', {
+      method: 'POST',
+    }).then((t) => t.json());
+    console.log(data);
 
     const options = {
       key: import.meta.env.VITE_RZP_KEY_ID,
-      amount: payment_amount * 100,
-      name: 'LaundriX',
-      image: 'https://i.postimg.cc/hvWF4W7P/SVGRepo-icon-Carrier.png',
-      description: 'Thanks for choosing us!',
-      // callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
-
-      handler(response) {
-        const paymentId = response.razorpay_payment_id;
-        const url =
-          import.meta.env.URL +
-          '/api/v1/rzp_capture/' +
-          paymentId +
-          '/' +
-          payment_amount;
-        // Using my server endpoints to capture the payment
-        fetch(url, {
-          method: 'get',
-          headers: {
-            'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          },
-        })
-          .then((resp) => resp.json())
-          .then(function (data) {
-            console.log('Request succeeded with JSON response', data);
-            self.setState({
-              refund_id: response.razorpay_payment_id,
-            });
-          })
-          .catch(function (error) {
-            console.log('Request failed', error);
-          });
+      amount: data.amount.toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: data.currency,
+      name: 'Laundrix',
+      description: 'Complete payment',
+      image: 'https://example.com/your_logo',
+      order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      // eslint-disable-next-line no-unused-vars
+      handler: function (response) {
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+        // can be used to redirect after paymenmt completion
+        // window.location.replace(window.location.href)
+      },
+      callback_url: 'https://www.google.com/',
+      prefill: {
+        name: 'Gaurav Kumar', //your customer's name
+        email: 'gaurav.kumar@example.com',
+        contact: '9000090000', //Provide the customer's phone number for better conversion rates
       },
       notes: {
         address: 'IIITDM JABALPUR',
@@ -113,9 +106,8 @@ const CheckoutPage = () => {
         color: '#584BAC',
       },
     };
-    const rzp1 = new window.Razorpay(options);
-
-    rzp1.open();
+    var paymentObject = new window.Razorpay(options);
+    paymentObject.open();
   }
 
   return (
@@ -222,7 +214,7 @@ const CheckoutPage = () => {
       <Button
         onClick={() => {
           pickupTime && deliveryTime && pickupDate
-            ? paymentHandler()
+            ? displayRazorpay()
             : toast({
                 position: 'top',
                 title: 'Error !',
