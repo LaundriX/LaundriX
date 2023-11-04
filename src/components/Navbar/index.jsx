@@ -11,25 +11,23 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { FcGoogle } from 'react-icons/fc';
-import { auth, provider } from '../Authentication/config.jsx';
-import { signInWithPopup } from 'firebase/auth';
 import useOrderStore from '../Store/OrderStore';
 
 function Navbar() {
   const {
     userEmail,
     userName,
-    setUserName,
-    setUserEmail,
-    addAuth,
-    removeAuth,
+    // setUserName,
+    // setUserEmail,
+    // addAuth,
+    // removeAuth,
   } = useOrderStore((state) => ({
     userEmail: state.userEmail,
     userName: state.userName,
     setUserEmail: state.setUserEmail,
     setUserName: state.setUserName,
-    addAuth: state.addAuth,
-    removeAuth: state.removeAuth,
+    // addAuth: state.addAuth,
+    // removeAuth: state.removeAuth,
   }));
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -39,10 +37,10 @@ function Navbar() {
   };
 
   useEffect(() => {
-    setUserEmail(localStorage.getItem('email'));
-    setUserName(localStorage.getItem('username'));
+    // setUserEmail(localStorage.getItem('email'));
+    // setUserName(localStorage.getItem('username'));
     window.addEventListener('resize', handleWidth);
-    userName ? addAuth() : removeAuth();
+    // userName ? addAuth() : removeAuth();
 
     return () => {
       window.removeEventListener('resize', handleWidth);
@@ -50,22 +48,22 @@ function Navbar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleClick() {
-    signInWithPopup(auth, provider).then((data) => {
-      setUserEmail(data.user.email);
-      setUserName(data.user.displayName);
-      localStorage.setItem('email', data.user.email);
-      localStorage.setItem('username', data.user.displayName);
-      addAuth();
-    });
-  }
+  // function handleClick() {
+  //   signInWithPopup(auth, provider).then((data) => {
+  //     setUserEmail(data.user.email);
+  //     setUserName(data.user.displayName);
+  //     localStorage.setItem('email', data.user.email);
+  //     localStorage.setItem('username', data.user.displayName);
+  //     // addAuth();
+  //   });
+  // }
 
-  function logOut() {
-    localStorage.clear();
-    setUserEmail('');
-    setUserName('');
-    removeAuth();
-  }
+  // function logOut() {
+  //   localStorage.clear();
+  //   setUserEmail('');
+  //   setUserName('');
+  //   // removeAuth();
+  // }
 
   const iconSize = () => {
     if (windowWidth >= 1280) {
@@ -111,7 +109,7 @@ function Navbar() {
               w={['110px', '200px', '230px', '240px']}
             >
               <Button
-                onClick={logOut}
+                // onClick={logOut}
                 h={['30px', '36px', '39px']}
                 w={['70px', '80px', '95px']}
                 backgroundColor="#6252c4"
@@ -164,7 +162,7 @@ function Navbar() {
               fontSize={['0.8rem', '1rem', '1.1rem']}
               w={['80px', '100px', '220px']}
               h={['30px', '37px', '44px']}
-              onClick={handleClick}
+              // onClick={handleClick}
             >
               {windowWidth >= 768 ? 'Sign in with Google' : 'Sign In'}
             </Button>

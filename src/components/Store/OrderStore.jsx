@@ -12,7 +12,7 @@ const useOrderStore = create((set) => ({
   deliveryDate: '-- -- --',
   pickupTime: '',
   deliveryTime: '',
-  isAuth: false,
+  isAuth: true,
   userEmail: '',
   userName: '',
 
