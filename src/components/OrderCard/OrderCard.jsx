@@ -30,8 +30,8 @@ const OrderCard = (props) => {
       userName: state.userName,
       setUserEmail: state.setUserEmail,
       setUserName: state.setUserName,
-      addAuth: state.addAuth,
-      removeAuth: state.removeAuth,
+      // addAuth: state.addAuth,
+      // removeAuth: state.removeAuth,
     }));
 
   const toast = useToast();
