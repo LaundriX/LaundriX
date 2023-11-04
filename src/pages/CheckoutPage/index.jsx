@@ -72,7 +72,7 @@ const CheckoutPage = () => {
       return;
     }
 
-    const data = await fetch('http://localhost:3000/razorpay', {
+    const data = await fetch('https://razorpay-yvku.onrender.com/razorpay', {
       method: 'POST',
     }).then((t) => t.json());
     console.log(data);
