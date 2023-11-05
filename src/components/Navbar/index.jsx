@@ -218,7 +218,8 @@ function Navbar() {
                 icon={<BiUserCheck size="1.7rem" color="#584bac" />}
                 onClick={() => navigate('/login')}
               >
-                Log In
+                
+                Log In    
               </MenuItem>
             </MenuList>
           </Menu>
