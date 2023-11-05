@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
 import {
-  Text,
-  Flex,
-  Spacer,
   Button,
-  Avatar,
-  Tag,
-  TagLabel,
-  Box,
+  Flex,
+  IconButton,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  IconButton,
+  MenuList,
+  Spacer,
+  Text,
 } from '@chakra-ui/react';
-import { FcGoogle } from 'react-icons/fc';
+import React, { useEffect, useState } from 'react';
+import { BiUserCheck, BiUserPlus } from 'react-icons/bi';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { Link, useNavigate } from 'react-router-dom';
 import useOrderStore from '../Store/OrderStore';
-import { BiUserPlus, BiUserCheck } from 'react-icons/bi';
 
 function Navbar() {
   const {
