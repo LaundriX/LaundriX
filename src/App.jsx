@@ -6,6 +6,8 @@ import OrderList from './pages/OrderList';
 import PreLoader from './components/PreLoader';
 import CheckoutPage from './pages/CheckoutPage';
 import OrderConfirmationPage from './pages/OrderConfirmation';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +34,8 @@ function App() {
           path="/OrderConfirmationPage"
           element={isLoading ? <PreLoader /> : <OrderConfirmationPage />}
         />
+        <Route path="/login" element={<Login />}/>
+        <Route path="/signup" element={<Signup />}/>
       </Routes>
     </>
   );

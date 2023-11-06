@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import {
-  Text,
-  Flex,
-  Spacer,
   Button,
-  Avatar,
-  Tag,
-  TagLabel,
-  Box,
+  Flex,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Spacer,
+  Text,
 } from '@chakra-ui/react';
-import { FcGoogle } from 'react-icons/fc';
+import React, { useEffect, useState } from 'react';
+import { BiUserCheck, BiUserPlus } from 'react-icons/bi';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { Link, useNavigate } from 'react-router-dom';
 import useOrderStore from '../Store/OrderStore';
 
 function Navbar() {
@@ -31,6 +33,7 @@ function Navbar() {
   }));
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
   const handleWidth = () => {
     setWindowWidth(window.innerWidth);
@@ -79,96 +82,149 @@ function Navbar() {
 
   return (
     <>
-      <Box>
-        <Flex
-          align="center"
-          position="fixed"
-          top="0"
-          w="100vw"
-          h={['50px', '55px', '70px']}
-          boxShadow="0px 2px 3px lightgray"
-          pr={['15px', '30px']}
-          bgColor="white"
-          zIndex="1"
-        >
-          <Link to="/">
-            <Text
-              color="#584BAC"
-              fontWeight="500"
-              fontSize={['1.5rem', '1.7rem', '2.3rem', '2.7rem']}
-              ml={['20px', '30px', '40px', '50px']}
-            >
-              LaundriX
-            </Text>
-          </Link>
-          <Spacer />
-          {userEmail ? (
-            <Flex
-              align="center"
-              justify="space-between"
-              w={['110px', '200px', '230px', '240px']}
-            >
-              <Button
-                // onClick={logOut}
-                h={['30px', '36px', '39px']}
-                w={['70px', '80px', '95px']}
-                backgroundColor="#6252c4"
-                borderRadius="9px"
-                fontSize={['0.8rem', '1rem', '1.1rem']}
-                color="#ffffff"
-                _hover={{
-                  bg: '#4c4196',
-                }}
-                _active={{
-                  bg: '#7b6bed',
-                  transform: 'scale(0.98)',
-                }}
-              >
-                Log Out
-              </Button>
-              <Tag
-                borderRadius="full"
-                w={['31px', '110px', '120px']}
-                h={['31px', '38px', '44px']}
-                bg="#ffffff"
-                justifyContent="center"
-                _hover={{ bg: '#f9edfa' }}
-                border={['none', '2px solid #584Bac']}
-                cursor="pointer"
-              >
-                <Avatar
-                  name={userName.split(' ')[0]}
-                  w="31px"
-                  h="31px"
-                  mr={['0px', '8px']}
-                  bg="pink.300"
-                />
-                <TagLabel
-                  color="#584BAC"
-                  fontSize={['0.8rem', '1rem', '1.1rem']}
-                  display={{ base: 'none', sm: 'block' }}
-                >
-                  {userName.split(' ')[0]}
-                </TagLabel>
-              </Tag>
-            </Flex>
-          ) : (
+      <Flex
+        align="center"
+        w="100%"
+        position="fixed"
+        top="0%"
+        h={['50px', '55px', '70px']}
+        boxShadow="0px 2px 3px lightgray"
+        pr={['15px', '30px']}
+        bgColor="white"
+        zIndex="1"
+      >
+        <Link to="/">
+          <Text
+            color="#584BAC"
+            fontWeight="500"
+            fontSize={['1.5rem', '1.7rem', '2.3rem', '2.7rem']}
+            ml={['20px', '30px', '40px', '50px']}
+          >
+            LaundriX
+          </Text>
+        </Link>
+        <Spacer />
+        {/* {userEmail ? (
+          <Flex
+            align="center"
+            justify="space-between"
+            w={['110px', '200px', '230px', '240px']}
+          >
             <Button
-              leftIcon={<FcGoogle style={{ fontSize: iconSize() }} />}
-              color="rgba(0, 0, 0, 0.60)"
-              border="2px solid #584BAC"
+              // onClick={logOut}
+              h={['30px', '36px', '39px']}
+              w={['70px', '80px', '95px']}
+              backgroundColor="#6252c4"
               borderRadius="9px"
-              backgroundColor="white"
               fontSize={['0.8rem', '1rem', '1.1rem']}
-              w={['80px', '100px', '220px']}
-              h={['30px', '37px', '44px']}
-              // onClick={handleClick}
+              color="#ffffff"
+              _hover={{
+                bg: '#4c4196',
+              }}
+              _active={{
+                bg: '#7b6bed',
+                transform: 'scale(0.98)',
+              }}
             >
-              {windowWidth >= 768 ? 'Sign in with Google' : 'Sign In'}
+              Log Out
             </Button>
-          )}
+            <Tag
+              borderRadius="full"
+              w={['31px', '110px', '120px']}
+              h={['31px', '38px', '44px']}
+              bg="#ffffff"
+              justifyContent="center"
+              _hover={{ bg: '#f9edfa' }}
+              border={['none', '2px solid #584Bac']}
+              cursor="pointer"
+            >
+              <Avatar
+                name={userName.split(' ')[0]}
+                w="31px"
+                h="31px"
+                mr={['0px', '8px']}
+                bg="pink.300"
+              />
+              <TagLabel
+                color="#584BAC"
+                fontSize={['0.8rem', '1rem', '1.1rem']}
+                display={{ base: 'none', sm: 'block' }}
+              >
+                {userName.split(' ')[0]}
+              </TagLabel>
+            </Tag>
+          </Flex>
+        ) : (
+          <Button
+            leftIcon={<FcGoogle style={{ fontSize: iconSize() }} />}
+            color="rgba(0, 0, 0, 0.60)"
+            border="2px solid #584BAC"
+            borderRadius="9px"
+            backgroundColor="white"
+            fontSize={['0.8rem', '1rem', '1.1rem']}
+            w={['80px', '100px', '220px']}
+            h={['30px', '37px', '44px']}
+            // onClick={handleClick}
+          >
+            {windowWidth >= 768 ? 'Sign in with Google' : 'Sign In'}
+          </Button>
+        )} */}
+        {/* For wider Viewports, laptop and tablet */}
+        <Flex display={{ base: 'none', md: 'block' }}>
+          <Button
+            borderRadius="0.5rem"
+            fontSize="1.1rem"
+            px="2rem"
+            _hover={{
+              bg: '#dbdbdb',
+              color: '#ce1567',
+            }}
+            onClick={() => navigate('/login')}
+          >
+            Log In
+          </Button>
+          <Button
+            bg="#ce1567"
+            color="#ffffff"
+            fontSize="1.1rem"
+            px="2rem"
+            ml="1.5rem"
+            _hover={{ bg: '#bf0055' }}
+            onClick={() => navigate('/signup')}
+          >
+            Sign Up
+          </Button>
         </Flex>
-      </Box>
+
+        {/* For Phone Viewport */}
+        <Flex display={{ base: 'block', md: 'none' }}>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              border="3px solid #584bac"
+              borderRadius="1.2rem"
+              icon={<GiHamburgerMenu size="1.5rem" color="#584bac" />}
+              variant="outline"
+            />
+            <MenuList fontSize="1.1rem">
+              <MenuItem
+                icon={<BiUserPlus size="1.7rem" color="#584bac" />}
+                onClick={() => navigate('/signup')}
+              >
+                Sign Up
+              </MenuItem>
+              <MenuItem
+                icon={<BiUserCheck size="1.7rem" color="#584bac" />}
+                onClick={() => navigate('/login')}
+              >
+                
+                Log In    
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      </Flex>
     </>
   );
 }
