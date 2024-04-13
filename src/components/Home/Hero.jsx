@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, Heading, Box, Image, Flex, chakra } from '@chakra-ui/react';
 import Landing from '/assets/LandingImg.svg';
 import { useNavigate } from 'react-router-dom';
+
 const LandingButton = chakra('button', {
   baseStyle: {
     px: '3',

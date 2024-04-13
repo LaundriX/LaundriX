@@ -13,7 +13,7 @@ export default function Login() {
         pt="10rem"
       >
         {/* Animation from Lottie */}
-        <Box display={{base: "none", lg: "block"}}>Animation</Box>
+        <Box display={{ base: 'none', lg: 'block' }}>Animation</Box>
         <LoginForm />
       </Flex>
     </>

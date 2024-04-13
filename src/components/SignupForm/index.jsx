@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   useToast,
@@ -12,9 +12,11 @@ import {
   InputRightElement,
   InputGroup,
 } from '@chakra-ui/react';
-
 import { BiShow, BiHide } from 'react-icons/bi';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+import useOrderStore from '../../components/Store/OrderStore';
 
 export default function SignupForm() {
   const [loading, setLoading] = useState(false);
@@ -27,6 +29,13 @@ export default function SignupForm() {
     confirmPassword: '',
   });
   const { name, phone, email, password, confirmPassword } = signupData;
+  const { addAuth, setUserEmail, setUserName } = useOrderStore((state) => ({
+    addAuth: state.addAuth,
+    setUserName: state.setUserName,
+    setUserEmail: state.setUserEmail,
+  }));
+
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -36,13 +45,36 @@ export default function SignupForm() {
       [e.target.name]: e.target.value,
     }));
   };
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+  }, [loading]);
 
-  const onSubmit = (e) => {
+  async function makeRegisterRequest() {
+    const response = await axios.post(
+      'http://localhost:4444/api/user/',
+      {
+        name: name,
+        email: email,
+        phone: phone,
+        password: password,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        withCredentials: true,
+      }
+    );
+    return response;
+  }
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (!(email && password)) {
+    if (!(email || password || name || phone)) {
       toast({
         title: 'Incomplete Entries',
-        description: 'Please enter both email and password',
+        description: 'Please enter all the fields',
         status: 'error',
         duration: 2000,
         isClosable: true,
@@ -50,7 +82,35 @@ export default function SignupForm() {
       });
       return;
     }
-    // Function from Axios for user signup
+    setLoading(true);
+    try {
+      const response = await makeRegisterRequest();
+
+      cookies.set('token', response.data.token);
+      cookies.set('userName', response.data.name);
+      cookies.set('userEmail', response.data.email);
+
+      addAuth();
+      setUserName(response.name);
+      setUserEmail(response.email);
+
+      navigate('/');
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      const parser = new DOMParser();
+      const htmlDoc = parser.parseFromString(error.response.data, 'text/html');
+      const errorMessage = htmlDoc.body.textContent.trim();
+
+      toast({
+        title: 'Error',
+        description: errorMessage.slice(7, 27),
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    }
   };
 
   return (
