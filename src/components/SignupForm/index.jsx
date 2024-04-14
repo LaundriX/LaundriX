@@ -29,11 +29,15 @@ export default function SignupForm() {
     confirmPassword: '',
   });
   const { name, phone, email, password, confirmPassword } = signupData;
-  const { addAuth, setUserEmail, setUserName } = useOrderStore((state) => ({
-    addAuth: state.addAuth,
-    setUserName: state.setUserName,
-    setUserEmail: state.setUserEmail,
-  }));
+  const { addAuth, setUserEmail, setUserName, setUserPhone } = useOrderStore(
+    (state) => ({
+      addAuth: state.addAuth,
+      setUserName: state.setUserName,
+      setUserEmail: state.setUserEmail,
+      setUserPhone: state.setUserPhone,
+      userName: state.userName,
+    })
+  );
 
   const cookies = new Cookies();
   const navigate = useNavigate();
@@ -45,6 +49,7 @@ export default function SignupForm() {
       [e.target.name]: e.target.value,
     }));
   };
+
   useEffect(() => {
     if (loading) {
       return;
@@ -89,10 +94,12 @@ export default function SignupForm() {
       cookies.set('token', response.data.token);
       cookies.set('userName', response.data.name);
       cookies.set('userEmail', response.data.email);
+      cookies.set('userPhone', response.data.phone);
 
       addAuth();
-      setUserName(response.name);
-      setUserEmail(response.email);
+      setUserName(response.data.name);
+      setUserEmail(response.data.email);
+      setUserPhone(response.data.phone);
 
       navigate('/');
       setLoading(false);

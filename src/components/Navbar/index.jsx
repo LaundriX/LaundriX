@@ -10,45 +10,26 @@ import {
   Text,
   Avatar,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import { BiUserCheck, BiUserPlus } from 'react-icons/bi';
+import { BiUserCheck, BiUserPlus, BiLogOut } from 'react-icons/bi';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { Link, useNavigate } from 'react-router-dom';
 import useOrderStore from '../Store/OrderStore';
 import Cookies from 'universal-cookie';
 
 function Navbar() {
-  const { isAuth, removeAuth, addAuth, setUserName, setUserEmail, userName } =
-    useOrderStore((state) => ({
-      isAuth: state.isAuth,
-      addAuth: state.addAuth,
-      removeAuth: state.removeAuth,
-      userName: state.userName,
-      setUserName: state.setUserName,
-      setUserEmail: state.setUserEmail,
-    }));
+  const { isAuth, removeAuth, userName } = useOrderStore((state) => ({
+    isAuth: state.isAuth,
+    addAuth: state.addAuth,
+    removeAuth: state.removeAuth,
+    userName: state.userName,
+    setUserName: state.setUserName,
+    setUserEmail: state.setUserEmail,
+    setUserPhone: state.setUserPhone,
+  }));
 
   // eslint-disable-next-line no-unused-vars
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const cookies = new Cookies();
-
-  const handleWidth = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    if (cookies.get('token')) {
-      addAuth();
-      setUserName(cookies.get('userName'));
-      setUserEmail(cookies.get('userEmail'));
-    }
-    window.addEventListener('resize', handleWidth);
-    return () => {
-      window.removeEventListener('resize', handleWidth);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function logout() {
     window.location.reload(false);
@@ -56,6 +37,7 @@ function Navbar() {
     cookies.remove('token');
     cookies.remove('userName');
     cookies.remove('userEmail');
+    cookies.remove('userPhone');
   }
 
   return (
@@ -139,20 +121,35 @@ function Navbar() {
               icon={<GiHamburgerMenu size="1.5rem" color="#584bac" />}
               variant="outline"
             />
-            <MenuList fontSize="1.1rem">
-              <MenuItem
-                icon={<BiUserPlus size="1.7rem" color="#584bac" />}
-                onClick={() => navigate('/signup')}
-              >
-                Sign Up
-              </MenuItem>
-              <MenuItem
-                icon={<BiUserCheck size="1.7rem" color="#584bac" />}
-                onClick={() => navigate('/login')}
-              >
-                Log In
-              </MenuItem>
-            </MenuList>
+
+            {isAuth ? (
+              <MenuList fontSize="1.1rem">
+                <MenuItem>
+                  <Avatar name={userName} size="sm" />
+                </MenuItem>
+                <MenuItem
+                  icon={<BiLogOut size="1.5rem" color="#584bac" />}
+                  onClick={() => logout()}
+                >
+                  Logout
+                </MenuItem>
+              </MenuList>
+            ) : (
+              <MenuList>
+                <MenuItem
+                  icon={<BiUserCheck size="1.7rem" color="#584bac" />}
+                  onClick={() => navigate('/login')}
+                >
+                  Log In
+                </MenuItem>
+                <MenuItem
+                  icon={<BiUserPlus size="1.7rem" color="#584bac" />}
+                  onClick={() => navigate('/signup')}
+                >
+                  Sign Up
+                </MenuItem>
+              </MenuList>
+            )}
           </Menu>
         </Flex>
       </Flex>
