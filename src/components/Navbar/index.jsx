@@ -10,7 +10,6 @@ import {
   Text,
   Avatar,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
 import { BiUserCheck, BiUserPlus, BiLogOut } from 'react-icons/bi';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,15 +17,7 @@ import useOrderStore from '../Store/OrderStore';
 import Cookies from 'universal-cookie';
 
 function Navbar() {
-  const {
-    isAuth,
-    removeAuth,
-    addAuth,
-    setUserName,
-    setUserEmail,
-    userName,
-    setUserPhone,
-  } = useOrderStore((state) => ({
+  const { isAuth, removeAuth, userName } = useOrderStore((state) => ({
     isAuth: state.isAuth,
     addAuth: state.addAuth,
     removeAuth: state.removeAuth,
@@ -37,27 +28,8 @@ function Navbar() {
   }));
 
   // eslint-disable-next-line no-unused-vars
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const cookies = new Cookies();
-
-  const handleWidth = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    if (cookies.get('token')) {
-      addAuth();
-      setUserName(cookies.get('userName'));
-      setUserEmail(cookies.get('userEmail'));
-      setUserPhone(cookies.get('userPhone'));
-    }
-    window.addEventListener('resize', handleWidth);
-    return () => {
-      window.removeEventListener('resize', handleWidth);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function logout() {
     window.location.reload(false);

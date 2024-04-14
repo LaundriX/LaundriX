@@ -15,6 +15,7 @@ import { MdOutlineLocationSearching } from 'react-icons/md';
 import { TfiLocationPin } from 'react-icons/tfi';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
 function loadScript(src) {
   return new Promise((resolve) => {
     const script = document.createElement('script');
@@ -40,6 +41,7 @@ const CheckoutPage = () => {
     deliveryTime,
     pickupTime,
     pickupDate,
+    isAuth,
     pickupAddress,
     dropAddress,
     setPickupAddress,
@@ -49,6 +51,7 @@ const CheckoutPage = () => {
     Phone,
     Total,
   } = useOrderStore((state) => ({
+    isAuth: state.isAuth,
     setPickupDate: state.setPickupDate,
     setPickupTime: state.setPickupTime,
     setDeliveryTime: state.setDeliveryTime,
@@ -69,8 +72,15 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (Total === 0) {
+    if (!(isAuth && Total)) {
       navigate('/OrderList');
+      toast({
+        title: isAuth ? 'Add some items! ' : 'Login first!',
+        description: '',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -111,7 +121,6 @@ const CheckoutPage = () => {
         amount: Total,
       });
 
-      console.log(data);
       const options = {
         key: import.meta.env.VITE_RZP_KEY_ID,
         amount: data.data.amount.toString(),
