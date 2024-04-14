@@ -8,6 +8,7 @@ const order = [[WashList, PowerCleanList, DryCleanList]];
 const useOrderStore = create((set) => ({
   Orders: [...order],
   Total: 0,
+  Phone: 0,
   pickupDate: '',
   deliveryDate: '-- -- --',
   pickupTime: '',
@@ -15,6 +16,8 @@ const useOrderStore = create((set) => ({
   isAuth: false,
   userEmail: '',
   userName: '',
+  pickupAddress: '',
+  dropAddress: '',
 
   setUserEmail: (value) => {
     set((state) => {
@@ -31,6 +34,12 @@ const useOrderStore = create((set) => ({
         ...state,
         userName: value,
       };
+    });
+  },
+
+  setUserPhone: (value) => {
+    set((state) => {
+      return { ...state, Phone: value };
     });
   },
 
@@ -77,6 +86,18 @@ const useOrderStore = create((set) => ({
   setDeliveryTime: (value) => {
     set((state) => {
       return { ...state, deliveryTime: value };
+    });
+  },
+
+  setPickupAddress: (value) => {
+    set((state) => {
+      return { ...state, pickupAddress: value };
+    });
+  },
+
+  setDropAddress: (value) => {
+    set((state) => {
+      return { ...state, dropAddress: value };
     });
   },
 

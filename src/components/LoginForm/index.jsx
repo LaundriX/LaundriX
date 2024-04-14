@@ -27,11 +27,14 @@ export default function LoginForm() {
     password: '',
   });
 
-  const { addAuth, setUserName, setUserEmail } = useOrderStore((state) => ({
-    addAuth: state.addAuth,
-    setUserName: state.setUserName,
-    setUserEmail: state.setUserEmail,
-  }));
+  const { addAuth, setUserName, setUserEmail, setUserPhone } = useOrderStore(
+    (state) => ({
+      addAuth: state.addAuth,
+      setUserName: state.setUserName,
+      setUserEmail: state.setUserEmail,
+      setUserPhone: state.setUserPhone,
+    })
+  );
 
   const { email, password } = loginData;
 
@@ -84,10 +87,12 @@ export default function LoginForm() {
       cookies.set('token', response.data.token);
       cookies.set('userName', decodeURIComponent(response.data.name));
       cookies.set('userEmail', decodeURIComponent(response.data.email));
+      cookies.set('userPhone', decodeURIComponent(response.data.phone));
 
       addAuth();
-      setUserName(response.name);
-      setUserEmail(response.email);
+      setUserName(response.data.name);
+      setUserEmail(response.data.email);
+      setUserPhone(response.data.phone);
 
       navigate('/');
       setLoading(false);
