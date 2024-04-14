@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import {
   Button,
@@ -14,6 +14,7 @@ import moment from 'moment';
 import { MdOutlineLocationSearching } from 'react-icons/md';
 import { TfiLocationPin } from 'react-icons/tfi';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function loadScript(src) {
   return new Promise((resolve) => {
     const script = document.createElement('script');
@@ -64,6 +65,15 @@ const CheckoutPage = () => {
     Phone: state.userPhone,
     Total: state.Total,
   }));
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Total === 0) {
+      navigate('/OrderList');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handlePickupDate(e) {
     setPickupDate(e.target.value);
