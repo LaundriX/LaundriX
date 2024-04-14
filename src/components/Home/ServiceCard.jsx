@@ -2,6 +2,7 @@ import React from 'react';
 import Services from '../../TempData/Services';
 import Service from './Service';
 import { Box, Center, Divider, Text } from '@chakra-ui/react';
+
 const ServiceCard = () => {
   const tasks = Services.map((task) => {
     return <Service key={task.id} task={task} />;

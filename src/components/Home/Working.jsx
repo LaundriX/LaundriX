@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Box, Image, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+
 const CardWrapper = styled.div`
   display: flex;
   justify-content: center;

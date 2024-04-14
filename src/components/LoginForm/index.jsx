@@ -9,12 +9,15 @@ import {
   Stack,
   Text,
   useToast,
+  Spinner,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { BiHide, BiShow } from 'react-icons/bi';
+import useOrderStore from '../Store/OrderStore';
+import Cookies from 'universal-cookie';
 
 export default function LoginForm() {
   const [loading, setLoading] = useState(false);
@@ -23,7 +26,16 @@ export default function LoginForm() {
     email: '',
     password: '',
   });
+
+  const { addAuth, setUserName, setUserEmail } = useOrderStore((state) => ({
+    addAuth: state.addAuth,
+    setUserName: state.setUserName,
+    setUserEmail: state.setUserEmail,
+  }));
+
   const { email, password } = loginData;
+
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -34,7 +46,24 @@ export default function LoginForm() {
     }));
   };
 
-  const onSubmit = (e) => {
+  async function makeLoginRequest() {
+    const response = await axios.post(
+      'http://localhost:4444/api/user/login',
+      {
+        email: email,
+        password: password,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        withCredentials: true,
+      }
+    );
+    return response;
+  }
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (!(email && password)) {
       toast({
@@ -47,7 +76,39 @@ export default function LoginForm() {
       });
       return;
     }
-    // Function from Axios for user login
+
+    setLoading(true);
+    try {
+      let response = await makeLoginRequest();
+
+      cookies.set('token', response.data.token);
+      cookies.set('userName', decodeURIComponent(response.data.name));
+      cookies.set('userEmail', decodeURIComponent(response.data.email));
+
+      addAuth();
+      setUserName(response.name);
+      setUserEmail(response.email);
+
+      navigate('/');
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+
+      const parser = new DOMParser();
+      const htmlDoc = parser.parseFromString(error.response.data, 'text/html');
+      const errorMessage = htmlDoc.body.textContent.trim();
+
+      toast({
+        title: 'Error',
+        description: errorMessage.slice(7, 27),
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -128,9 +189,7 @@ export default function LoginForm() {
               </Box>
               <Center>
                 {loading ? (
-                  <Button isLoading loadingText="Logging In...">
-                    Log In
-                  </Button>
+                  <Spinner />
                 ) : (
                   <Button
                     type="submit"
@@ -141,7 +200,7 @@ export default function LoginForm() {
                     bg="#ce1567"
                     color="white"
                     _hover={{
-                      bg: '', 
+                      bg: '',
                     }}
                     rightIcon={
                       <AiOutlineArrowRight color="#ffffff" size="1.2rem" />
@@ -154,6 +213,7 @@ export default function LoginForm() {
             </form>
           </Flex>
           <Text textAlign="center" fontSize={['1.1rem', '1.2rem']}>
+            {/*eslint-disable-next-line react/no-unescaped-entities */}
             Don't have an account?
           </Text>
           <Text

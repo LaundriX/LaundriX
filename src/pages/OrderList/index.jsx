@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import OrderCard from '../../components/OrderCard/OrderCard';
 import Navbar from '../../components/Navbar';
 import {
@@ -10,21 +10,8 @@ import {
   Box,
   Text,
 } from '@chakra-ui/react';
-import useOrderStore from '../../components/Store/OrderStore';
 
 function OrderList() {
-  const { userName, addAuth, removeAuth } = useOrderStore((state) => ({
-    userName: state.userName,
-    setUserEmail: state.setUserEmail,
-    setUserName: state.setUserName,
-    addAuth: state.addAuth,
-    removeAuth: state.removeAuth,
-  }));
-
-  useEffect(() => {
-    userName == null ? removeAuth() : addAuth();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <>
       <Navbar />
