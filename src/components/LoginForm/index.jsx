@@ -204,9 +204,7 @@ export default function LoginForm() {
                     fontSize="1rem"
                     bg="#ce1567"
                     color="white"
-                    _hover={{
-                      bg: '',
-                    }}
+                    _hover={{ bg: '#bf0055' }}
                     rightIcon={
                       <AiOutlineArrowRight color="#ffffff" size="1.2rem" />
                     }

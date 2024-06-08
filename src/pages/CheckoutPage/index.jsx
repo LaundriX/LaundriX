@@ -12,9 +12,10 @@ import {
 import useOrderStore from '../../components/Store/OrderStore';
 import moment from 'moment';
 import { MdOutlineLocationSearching } from 'react-icons/md';
-import { TfiLocationPin } from 'react-icons/tfi';
+import { SlLocationPin } from 'react-icons/sl';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -32,7 +33,7 @@ function loadScript(src) {
 
 const CheckoutPage = () => {
   const toast = useToast();
-
+  const cookies = new Cookies();
   const {
     setPickupDate,
     setPickupTime,
@@ -50,6 +51,7 @@ const CheckoutPage = () => {
     userEmail,
     Phone,
     Total,
+    Order,
   } = useOrderStore((state) => ({
     isAuth: state.isAuth,
     setPickupDate: state.setPickupDate,
@@ -67,6 +69,7 @@ const CheckoutPage = () => {
     userEmail: state.userEmail,
     Phone: state.userPhone,
     Total: state.Total,
+    Order: state.Orders,
   }));
 
   const navigate = useNavigate();
@@ -135,7 +138,7 @@ const CheckoutPage = () => {
           // alert(response.razorpay_order_id);
           // alert(response.razorpay_signature);
           // can be used to redirect after paymenmt completion
-          // window.location.replace(window.location.href)
+          window.location.replace('http://localhost:5173/pastOrders');
         },
         callback_url: 'https://www.google.com/',
         prefill: {
@@ -156,48 +159,93 @@ const CheckoutPage = () => {
       console.log(error);
     }
   }
+  let data = JSON.stringify({
+    order: Order,
+    total: Total,
+    pickupDate: pickupDate,
+    deliveryDate: deliveryDate,
+    pickupTime: pickupTime,
+    deliveryTime: deliveryTime,
+  });
+
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'http://localhost:4444/api/orders',
+    headers: {
+      Authorization: `Bearer ${cookies.get('token')}`,
+      'Content-Type': 'application/json',
+    },
+    data: data,
+  };
+  async function addOrder() {
+    try {
+      const response = await axios.request(config);
+      console.log(data);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
       <Navbar />
-      <Text mt="100px" fontSize="35px" ml="50px" fontWeight="medium">
+      <Text
+        mt={{ base: '5rem', sm: '8rem' }}
+        fontSize="35px"
+        ml={{ base: '0', sm: '4rem' }}
+        fontWeight="medium"
+        align={{ base: 'center', sm: 'left' }}
+      >
         Schedule Pickup
       </Text>
-      <Flex direction="column" justify="center" align="center">
+      <Flex
+        direction="column"
+        justify="center"
+        align="center"
+        mt={{ base: '2.5rem', md: '4rem' }}
+      >
         <Flex
           border="1px solid lightgray"
           borderRadius="10px"
           justify="space-between"
           align="center"
-          w="450px"
-          h="180px"
-          px="25px"
-          ml="50px"
-          mt="25px"
+          w={{ base: '20.5rem', sm: '24rem', md: '28.125rem' }}
+          h={{ base: '9rem', sm: '10rem', md: '11.25rem' }}
+          px={{ sm: '0.6rem', md: '1.5rem' }}
+          // ml={{md:"3.125rem"}}
+          mt={{ md: '1.5rem' }}
           boxSizing="border-box"
         >
           <Flex
             direction="column"
             justify="space-between"
             align="flex-start"
-            h="140px"
+            h={{ base: '120px', sm: '140px' }}
           >
             <Flex justify="space-between" align="center">
               <Image
                 src="assets/Laundrix/Outline/Calendar-Add/24px.svg"
-                boxSize="35px"
+                boxSize={{ base: '29px', sm: '30px', md: '35px' }}
                 mr="10px"
+                pl={{ base: '10px', sm: '0px' }}
               />
-              <Text color="#CE1567" fontWeight="medium">
+              <Text
+                color="#CE1567"
+                fontWeight="medium"
+                fontSize={{ sm: '0.95rem', md: '1rem' }}
+              >
                 Pickup Time
               </Text>
             </Flex>
             <Select
               placeholder="Select date"
               onChange={handlePickupDate}
-              width="180px"
+              width="140px"
               color="black"
               fontWeight="medium"
+              fontSize={{ sm: '0.95rem', md: '1rem' }}
               border="none"
             >
               <option value="Today">
@@ -215,6 +263,7 @@ const CheckoutPage = () => {
               onChange={handlePickupTime}
               width="140px"
               border="none"
+              fontSize={{ sm: '0.95rem', md: '1rem' }}
               color="#584bac"
               fontWeight="medium"
             >
@@ -232,19 +281,29 @@ const CheckoutPage = () => {
             direction="column"
             justify="space-between"
             align="flex-start"
-            h="140px"
+            mr="1rem"
+            h={{ base: '120px', sm: '140px' }}
           >
             <Flex justify="space-between" align="center">
               <Image
                 src="assets/Laundrix (1)/Outline/Calendar-Check/24px.svg"
-                boxSize="35px"
-                mr="10px"
+                boxSize={{ base: '29px', sm: '30px', md: '35px' }}
+                mr="8px"
+                pl={{ base: '10px', sm: '0px' }}
               />
-              <Text color="#CE1567" fontWeight="medium">
+              <Text
+                color="#CE1567"
+                fontWeight="medium"
+                fontSize={{ sm: '0.95rem', md: '1rem' }}
+              >
                 Delivery Time
               </Text>
             </Flex>
-            <Text fontWeight="medium" ml="15px">
+            <Text
+              fontWeight="medium"
+              ml="15px"
+              fontSize={{ sm: '0.95rem', md: '1rem' }}
+            >
               {deliveryDate}
             </Text>
             <Select
@@ -252,6 +311,7 @@ const CheckoutPage = () => {
               onChange={handleDeliveryTime}
               width="140px"
               border="none"
+              fontSize={{ sm: '0.95rem', md: '1rem' }}
               color="#584bac"
               fontWeight="medium"
             >
@@ -264,20 +324,26 @@ const CheckoutPage = () => {
         <Flex
           border="1px solid lightgray"
           borderRadius="10px"
-          justify="space-between"
+          justify="center"
           align="center"
-          w="450px"
-          p="1rem"
-          px="25px"
-          ml="50px"
-          mt="25px"
+          flexDirection="column"
+          w={{ base: '20.5rem', sm: '24rem', md: '28.125rem' }}
+          h={{ base: '9rem', sm: '10rem', md: '11.25rem' }}
+          px={{ sm: '0.6rem', md: '1.5rem' }}
+          // ml="50px"
+          mt="2rem"
           boxSizing="border-box"
           direction="column"
         >
-          <Flex direction="column">
-            <Flex align="center" justify="space-between">
+          <Flex direction="column" gap="1.7rem">
+            <Flex align="center" justify="space-between" gap="1rem">
               <MdOutlineLocationSearching color="#19b1ec" size="1.7rem" />
-              <Text color="#CE1567">Pickup Address</Text>
+              <Text
+                color="#CE1567"
+                fontSize={{ base: '0.9rem', sm: '0.95rem', md: '1rem' }}
+              >
+                Pickup Address
+              </Text>
               <Select
                 placeholder="Select location"
                 onChange={handlePickupAddress}
@@ -285,6 +351,7 @@ const CheckoutPage = () => {
                 border="none"
                 color="#584bac"
                 fontWeight="medium"
+                fontSize={{ base: '0.9rem', sm: '0.95rem', md: '1rem' }}
               >
                 <option value="H1">H1</option>
                 <option value="H3">H3</option>
@@ -294,9 +361,14 @@ const CheckoutPage = () => {
                 <option value="Maa Saraswati">Maa Saraswati</option>
               </Select>
             </Flex>
-            <Flex align="center" justify="space-between">
-              <TfiLocationPin color="#CE1567" size="2rem" />
-              <Text color="#CE1567">Drop Address</Text>
+            <Flex align="center" justify="space-between" gap="1rem">
+              <SlLocationPin color="#CE1567" size="1.7rem" />
+              <Text
+                color="#CE1567"
+                fontSize={{ base: '0.9rem', sm: '0.95rem', md: '1rem' }}
+              >
+                Drop Address
+              </Text>
               <Select
                 placeholder="Select location"
                 onChange={handleDropAddress}
@@ -304,6 +376,7 @@ const CheckoutPage = () => {
                 border="none"
                 color="#584bac"
                 fontWeight="medium"
+                fontSize={{ base: '0.9rem', sm: '0.95rem', md: '1rem' }}
               >
                 <option value="H1">H1</option>
                 <option value="H3">H3</option>
@@ -315,27 +388,35 @@ const CheckoutPage = () => {
             </Flex>
           </Flex>
         </Flex>
+        <Button
+          mt="2rem"
+          fontSize={{ base: '1rem', sm: '1.2rem' }}
+          bg="lxRed"
+          color="lxLightPurple"
+          mb="1rem"
+          // width="10%"
+          borderRadius="1.2rem"
+          _hover={{ bg: '#bf0055' }}
+          onClick={() => {
+            pickupTime &&
+            deliveryTime &&
+            pickupDate &&
+            pickupAddress &&
+            dropAddress
+              ? (displayRazorpay(), addOrder())
+              : toast({
+                  position: 'top',
+                  title: 'Error !',
+                  description: 'Fill in all the details.',
+                  status: 'error',
+                  variant: 'subtle',
+                  duration: 2000,
+                });
+          }}
+        >
+          Pay & Confirm
+        </Button>
       </Flex>
-      <Button
-        onClick={() => {
-          pickupTime &&
-          deliveryTime &&
-          pickupDate &&
-          pickupAddress &&
-          dropAddress
-            ? displayRazorpay()
-            : toast({
-                position: 'top',
-                title: 'Error !',
-                description: 'Fill in all the details.',
-                status: 'error',
-                variant: 'subtle',
-                duration: 2000,
-              });
-        }}
-      >
-        Pay and Confirm
-      </Button>
     </>
   );
 };
