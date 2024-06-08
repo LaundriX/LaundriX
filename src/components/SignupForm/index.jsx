@@ -58,7 +58,7 @@ export default function SignupForm() {
 
   async function makeRegisterRequest() {
     const response = await axios.post(
-      'http://localhost:4444/api/user/',
+      'https://laundrix-backend.onrender.com/api/user/',
       {
         name: name,
         email: email,

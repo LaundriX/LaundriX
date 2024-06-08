@@ -83,6 +83,7 @@ const CheckoutPage = () => {
         status: 'error',
         duration: 3000,
         isClosable: true,
+        position: 'top',
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,9 +121,12 @@ const CheckoutPage = () => {
 
     console.log('hi', Total);
     try {
-      const data = await axios.post('http://localhost:3000/razorpay', {
-        amount: Total,
-      });
+      const data = await axios.post(
+        'https://razorpay-yvku.onrender.com/razorpay',
+        {
+          amount: Total,
+        }
+      );
 
       const options = {
         key: import.meta.env.VITE_RZP_KEY_ID,
@@ -140,7 +144,7 @@ const CheckoutPage = () => {
           // can be used to redirect after paymenmt completion
           window.location.replace('http://localhost:5173/pastOrders');
         },
-        callback_url: 'https://www.google.com/',
+        // callback_url: 'https://www.google.com/',
         prefill: {
           name: { userName },
           email: { userEmail },
@@ -171,7 +175,7 @@ const CheckoutPage = () => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://localhost:4444/api/orders',
+    url: 'https://laundrix-backend.onrender.com/api/orders',
     headers: {
       Authorization: `Bearer ${cookies.get('token')}`,
       'Content-Type': 'application/json',

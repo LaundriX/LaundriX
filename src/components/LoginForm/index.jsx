@@ -51,7 +51,7 @@ export default function LoginForm() {
 
   async function makeLoginRequest() {
     const response = await axios.post(
-      'http://localhost:4444/api/user/login',
+      'https://laundrix-backend.onrender.com/api/user/login',
       {
         email: email,
         password: password,

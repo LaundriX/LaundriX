@@ -71,6 +71,18 @@ function Navbar() {
                 <Avatar name={userName} />
               </MenuButton>
               <MenuList>
+                <MenuItem
+                  minH="48px"
+                  borderRadius="0.5rem"
+                  fontSize="1.1rem"
+                  px="2rem"
+                  _hover={{
+                    bg: '#dbdbdb',
+                    color: '#ce1567',
+                  }}
+                >
+                  {`Hi, ${userName}`}
+                </MenuItem>
                 <Link to="/pastOrders">
                   <MenuItem
                     minH="48px"
