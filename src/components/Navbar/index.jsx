@@ -66,21 +66,40 @@ function Navbar() {
         <Spacer />
         <Flex display={{ base: 'none', md: 'block' }}>
           {isAuth ? (
-            <Flex justify="center" align="center" gap="1.5rem">
-              <Avatar name={userName} />
-              <Button
-                borderRadius="0.5rem"
-                fontSize="1.1rem"
-                px="2rem"
-                _hover={{
-                  bg: '#dbdbdb',
-                  color: '#ce1567',
-                }}
-                onClick={() => logout()}
-              >
-                Log Out
-              </Button>
-            </Flex>
+            <Menu>
+              <MenuButton>
+                <Avatar name={userName} />
+              </MenuButton>
+              <MenuList>
+                <Link to="/pastOrders">
+                  <MenuItem
+                    minH="48px"
+                    borderRadius="0.5rem"
+                    fontSize="1.1rem"
+                    px="2rem"
+                    _hover={{
+                      bg: '#dbdbdb',
+                      color: '#ce1567',
+                    }}
+                  >
+                    Past orders
+                  </MenuItem>
+                </Link>
+                <MenuItem
+                  minH="48px"
+                  borderRadius="0.5rem"
+                  fontSize="1.1rem"
+                  px="2rem"
+                  _hover={{
+                    bg: '#dbdbdb',
+                    color: '#ce1567',
+                  }}
+                  onClick={() => logout()}
+                >
+                  Log Out
+                </MenuItem>
+              </MenuList>
+            </Menu>
           ) : (
             <Flex>
               <Button

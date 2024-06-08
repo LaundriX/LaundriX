@@ -113,6 +113,7 @@ const OrderCard = (props) => {
             color="lxLightPurple"
             mb="1rem"
             width="40%"
+            _hover={{ bg: '#bf0055' }}
             borderRadius="1.2rem"
             onClick={() => {
               isAuth

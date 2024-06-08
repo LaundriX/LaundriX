@@ -1,27 +1,8 @@
 import React from 'react';
-import { Text, Heading, Box, Image, Flex, chakra } from '@chakra-ui/react';
+import { Text, Heading, Box, Image, Flex, Button } from '@chakra-ui/react';
 import Landing from '/assets/LandingImg.svg';
 import { useNavigate } from 'react-router-dom';
 
-const LandingButton = chakra('button', {
-  baseStyle: {
-    px: '3',
-    mt: '2',
-    py: '2',
-    bg: '#584BAC',
-    width: '10rem',
-    fontSize: '1.3rem',
-    color: 'white',
-    rounded: 'lg',
-    _hover: {
-      bg: '#4c4196',
-    },
-    _active: {
-      bg: '#3f3680',
-      transform: 'scale(0.98)',
-    },
-  },
-});
 const Hero = () => {
   const navigate = useNavigate();
   return (
@@ -51,13 +32,16 @@ const Hero = () => {
             ridiculously simple.
           </Text>
 
-          <LandingButton
+          <Button
+            backgroundColor="#584BAC"
+            color="white"
+            _hover={{ bg: '#4c4196' }}
             onClick={() => {
               navigate('/OrderList');
             }}
           >
             Place Order
-          </LandingButton>
+          </Button>
         </Box>
         <Box>
           <Image src={Landing} alt="Landing Image" />
