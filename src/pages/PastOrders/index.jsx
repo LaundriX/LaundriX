@@ -36,6 +36,7 @@ const PastOrders = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const cookies = new Cookies();
+
   const navigate = useNavigate();
   const toast = useToast();
 
