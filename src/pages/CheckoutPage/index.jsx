@@ -144,7 +144,7 @@ const CheckoutPage = () => {
           // alert(response.razorpay_order_id);
           // alert(response.razorpay_signature);
           // can be used to redirect after paymenmt completion
-          window.location.replace('http://localhost:5173/pastOrders');
+          window.location.replace('https://laundri-x.netlify.app/pastOrders');
         },
         // callback_url: 'https://www.google.com/',
         prefill: {
