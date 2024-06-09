@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import {
   Button,
@@ -8,6 +8,7 @@ import {
   Divider,
   Select,
   useToast,
+  Spinner,
 } from '@chakra-ui/react';
 import useOrderStore from '../../components/Store/OrderStore';
 import moment from 'moment';
@@ -73,6 +74,7 @@ const CheckoutPage = () => {
   }));
 
   const navigate = useNavigate();
+  const [isloading, setIsloading] = useState(false);
 
   useEffect(() => {
     if (!(isAuth && Total)) {
@@ -159,8 +161,12 @@ const CheckoutPage = () => {
       };
       var paymentObject = new window.Razorpay(options);
       paymentObject.open();
+      setIsloading(false);
     } catch (error) {
+      setIsloading(false);
       console.log(error);
+    } finally {
+      setIsloading(false);
     }
   }
   let data = JSON.stringify({
@@ -407,7 +413,7 @@ const CheckoutPage = () => {
             pickupDate &&
             pickupAddress &&
             dropAddress
-              ? (displayRazorpay(), addOrder())
+              ? (displayRazorpay(), addOrder(), setIsloading(true))
               : toast({
                   position: 'top',
                   title: 'Error !',
@@ -418,7 +424,7 @@ const CheckoutPage = () => {
                 });
           }}
         >
-          Pay & Confirm
+          {isloading ? <Spinner /> : 'Pay & Confirm'}
         </Button>
       </Flex>
     </>
